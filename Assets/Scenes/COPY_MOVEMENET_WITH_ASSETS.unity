@@ -322,7 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turningCoefficient: 3
-  squarePlaceholder: {fileID: 6458806668649843235, guid: e0bb30c00d17bd941a3695f30561eb3f, type: 3}
+  squarePlaceholder: {fileID: 8743258937418417240, guid: 1e8228d80c6294775861e847954259ad, type: 3}
   skyPlaceholder: {fileID: 1908122528}
   underwaterPlaceholder: {fileID: 1639257918}
 --- !u!212 &605820285
@@ -365,7 +365,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 3859f1de520e22e488406c11c6f465ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

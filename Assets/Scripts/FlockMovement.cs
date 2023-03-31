@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FlockMovement : MonoBehaviour
@@ -7,7 +8,7 @@ public class FlockMovement : MonoBehaviour
     public float turningCoefficient = 3;
     private float movementSpeed = 20;
 
-    private int last10X = -2;
+    private int lastX = 0;
 
     private Vector3 cameraOffset;
 
@@ -27,10 +28,10 @@ public class FlockMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((int)transform.position.x / 10 > last10X)
+        if ((int)transform.position.x / squarePlaceholder.GetComponent<SpriteRenderer>().size.x > lastX)
         {
             SpawnEnvironmentPlaceholder();
-            last10X++;
+            lastX++;
         }
 
         SetRotation();
@@ -46,13 +47,13 @@ public class FlockMovement : MonoBehaviour
 
     private void SpawnEnvironmentPlaceholder()
     {
-        GameObject square = Instantiate(squarePlaceholder, new Vector3(transform.position.x, 0, 0) + Vector3.right * 50, Quaternion.identity);
+        GameObject square = Instantiate(squarePlaceholder, new Vector3(transform.position.x, squarePlaceholder.GetComponent<SpriteRenderer>().size.y/2, 0) + Vector3.right * 50, Quaternion.identity);
         StartCoroutine(RemoveEnvironmentPlaceholder(square));
     }
 
     IEnumerator RemoveEnvironmentPlaceholder(GameObject square)
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
         Destroy(square);
     }
 
