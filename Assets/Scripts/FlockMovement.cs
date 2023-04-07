@@ -12,7 +12,6 @@ public class FlockMovement : MonoBehaviour
 
     private Camera mainCamera;
 
-    public GameObject squarePlaceholder;
     public GameObject skyPlaceholder;
     public GameObject underwaterPlaceholder;
 

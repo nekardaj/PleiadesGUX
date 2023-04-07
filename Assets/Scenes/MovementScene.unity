@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 605820286}
   - component: {fileID: 605820285}
   - component: {fileID: 605820284}
+  - component: {fileID: 605820287}
   m_Layer: 0
   m_Name: FlockPlaceholder
   m_TagString: Untagged
@@ -238,7 +239,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turningCoefficient: 3
-  squarePlaceholder: {fileID: 6458806668649843235, guid: e0bb30c00d17bd941a3695f30561eb3f, type: 3}
   skyPlaceholder: {fileID: 1908122528}
   underwaterPlaceholder: {fileID: 1639257918}
 --- !u!212 &605820285
@@ -308,6 +308,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &605820287
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605820283}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.36, y: 2.44, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1209040381
 GameObject:
   m_ObjectHideFlags: 0
