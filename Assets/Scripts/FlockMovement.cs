@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FlockMovement : MonoBehaviour
 {
-    public float turningCoefficient = 3;
+    public float turningCoefficient = 1.5f;
     private float movementSpeed = 20;
 
     private Vector3 cameraOffset;
@@ -40,19 +40,20 @@ public class FlockMovement : MonoBehaviour
     private void SetRotation()
     {
         float verticalInput = Input.GetAxis("Vertical");
+        float angle = transform.rotation.eulerAngles.z > 270 ? 360 - transform.rotation.eulerAngles.z : transform.rotation.eulerAngles.z;
         if (verticalInput != 0 && Input.GetButton("Vertical"))
         {
-            transform.Rotate(0, 0, verticalInput * turningCoefficient);
+            transform.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) /*turningCoefficient*/);
         }
         else
         {
             if (transform.rotation.eulerAngles.z >= 270)
             {
-                transform.Rotate(0, 0, turningCoefficient);
+                transform.Rotate(0, 0, 1 - (Mathf.Abs(angle % 90)) / 90);
             }
             else if (transform.rotation.eulerAngles.z <= 90)
             {
-                transform.Rotate(0, 0, -turningCoefficient);
+                transform.Rotate(0, 0, -(1 - (Mathf.Abs(angle % 90)) / 90));
             }
 
             if (transform.rotation.eulerAngles.z <= 3 || transform.rotation.eulerAngles.z >= 357)

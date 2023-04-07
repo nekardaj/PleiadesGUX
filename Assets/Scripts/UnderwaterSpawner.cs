@@ -26,7 +26,7 @@ public class UnderwaterSpawner : Spawner
         List<GameObject> suitablePrefabs = prefabs.Where(prefab => prefab.name.StartsWith(lastHeight.ToString())).ToList();
         GameObject prefabToSpawn = suitablePrefabs[Random.Range(0, suitablePrefabs.Count)];
         lastHeight = ushort.Parse(prefabToSpawn.name.Substring(prefabToSpawn.name.Length - 1));
-        GameObject newUnderwater = Instantiate(prefabToSpawn, new Vector3(indexOfLastSpawned * prefabWidth + 50, -prefabHeight, 0), Quaternion.identity);
+        GameObject newUnderwater = Instantiate(prefabToSpawn, new Vector3(indexOfLastSpawned * prefabWidth + 50, -prefabHeight / 2, 0), Quaternion.identity);
         StartCoroutine(RemoveEnvironmentPlaceholder(newUnderwater));
         indexOfLastSpawned++;
     }
