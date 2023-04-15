@@ -16,6 +16,7 @@ public class UnderwaterSpawner : Spawner
         SetSortingLayers();
     }
 
+    // Update is called once per frame
     void Update()
     {
         

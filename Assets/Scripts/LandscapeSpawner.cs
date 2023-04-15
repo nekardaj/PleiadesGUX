@@ -16,6 +16,7 @@ public class LandscapeSpawner : Spawner
         SetSortingLayers();
     }
 
+    // Update is called once per frame
     void Update()
     {
         
