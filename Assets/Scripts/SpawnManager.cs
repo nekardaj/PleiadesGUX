@@ -5,13 +5,18 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private FlockMovement player;
+    private FlockManager player;
+
+    public GameObject starPrefab;
 
     private DarknessSpawner darknessSpawner;
     private LandscapeSpawner landscapeSpawner;
     private UnderwaterSpawner underwaterSpawner;
 
-    private int indexOfLastSpawned = 0;
+    private int indexOfLastSpawned = 0; // Index of the last tile spawned
+    private int starsSpawned = 0; // Number of stars spawned
+    private int spawnInterval = 7; // Every *spawnInterval* tiles a star spawns
+    private bool lastStarLayer = false; // True - last star was spawned in landscape, False - last star was spawned underwater
 
     void Start()
     {
@@ -24,15 +29,40 @@ public class SpawnManager : MonoBehaviour
     {
         if ((int)player.transform.position.x / darknessSpawner.prefabWidth > indexOfLastSpawned)
         {
-            SpawnEverything();
+            bool spawnStar = false;
+            //print((indexOfLastSpawned / spawnInterval > starsSpawned) + " " + (indexOfLastSpawned / spawnInterval) + " " + starsSpawned);
+            if (indexOfLastSpawned / spawnInterval > starsSpawned)
+            {
+                spawnStar = true;
+                starsSpawned++;
+            }
+            SpawnEnvironment(spawnStar);
             indexOfLastSpawned++;
         }
     }
 
-    void SpawnEverything()
+    void SpawnEnvironment(bool spawnStar)
     {
-        darknessSpawner.Spawn();
-        landscapeSpawner.Spawn();
-        underwaterSpawner.Spawn();
+        darknessSpawner.Spawn(false);
+        if (spawnStar)
+        {
+            if (lastStarLayer)
+            {
+                print("Spawning star underwater");
+                landscapeSpawner.Spawn(false);
+                underwaterSpawner.Spawn(true);
+            }
+            else
+            {
+                print("Spawning star landscape");
+                landscapeSpawner.Spawn(true);
+                underwaterSpawner.Spawn(false);
+            }
+        }
+        else
+        {
+            landscapeSpawner.Spawn(false);
+            underwaterSpawner.Spawn(false);
+        }
     }
 }

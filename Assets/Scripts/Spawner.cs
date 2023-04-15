@@ -10,20 +10,12 @@ public abstract class Spawner : MonoBehaviour
     [SerializeField]
     protected GameObject playerReference;
 
+    protected GameObject starPrefab;
+
     protected uint indexOfLastSpawned;
 
     public float prefabWidth;
     protected float prefabHeight;
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
 
     protected void SetSortingLayers()
     {
@@ -33,7 +25,7 @@ public abstract class Spawner : MonoBehaviour
         }
     }
 
-    public abstract void Spawn();
+    public abstract void Spawn(bool spawnStar);
 
     protected IEnumerator RemoveEnvironmentPlaceholder(GameObject prefab)
     {

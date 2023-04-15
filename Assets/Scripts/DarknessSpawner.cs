@@ -14,19 +14,14 @@ public class DarknessSpawner : Spawner
         SetSortingLayers();
     }
 
-    void Update()
+    public override void Spawn(bool spawnStar)
     {
-        
-    }
-
-    public override void Spawn()
-    {
-        GameObject newDarkness = Instantiate(prefabs[Random.Range(0, prefabs.Count)], new Vector3(indexOfLastSpawned * prefabWidth + 50, prefabHeight, 0), Quaternion.identity);
+        GameObject newDarkness = Instantiate(prefabs[Random.Range(0, prefabs.Count)], new Vector3(indexOfLastSpawned * prefabWidth + 50, prefabHeight * 1.25f, 0), Quaternion.identity);
         StartCoroutine(RemoveEnvironmentPlaceholder(newDarkness));
         indexOfLastSpawned++;
     }
 
-    /* Might be useful if we have a lot of sprites
+    /* Might be useful if we have a lot of sprites, needs to be extended
     private void Refresh()
     {
 

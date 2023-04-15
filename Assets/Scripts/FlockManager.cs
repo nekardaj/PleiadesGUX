@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class FlockMovement : MonoBehaviour
+public class FlockManager : MonoBehaviour
 {
     public float turningCoefficient = 1.5f;
     private float movementSpeed = 20;
+
+    private int flockCount = 1;
 
     private Vector3 cameraOffset;
 
@@ -14,11 +16,15 @@ public class FlockMovement : MonoBehaviour
 
     public GameObject skyPlaceholder;
     public GameObject underwaterPlaceholder;
+    public GameObject birdPrefab;
+
+    private List<GameObject> flock;
 
     void Start()
     {
         mainCamera = Camera.main;
         cameraOffset = mainCamera.transform.position - transform.position;
+        flock.Add(transform.GetChild(0).gameObject);
     }
 
     void Update()
@@ -89,5 +95,20 @@ public class FlockMovement : MonoBehaviour
         {
             mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, underwaterPlaceholder.transform.position.y, mainCamera.transform.position.z);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Star")
+        {
+            AddAnimalToFlock();
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void AddAnimalToFlock()
+    {
+        flockCount++;
+        GameObject newAnimal = Instantiate(birdPrefab, transform.position + new Vector3(0, Random.Range(), 0), transform.rotation, transform);
     }
 }
