@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
-    private FlockManager player;
+    private FlockMovement player;
 
     public GameObject starPrefab;
 
