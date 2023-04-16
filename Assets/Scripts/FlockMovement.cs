@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class FlockManager : MonoBehaviour
+public class FlockMovement : MonoBehaviour
 {
     public float turningCoefficient = 1.5f;
     private float movementSpeed = 20;
@@ -109,6 +109,6 @@ public class FlockManager : MonoBehaviour
     private void AddAnimalToFlock()
     {
         flockCount++;
-        GameObject newAnimal = Instantiate(birdPrefab, transform.position + new Vector3(0, Random.Range(), 0), transform.rotation, transform);
+        //GameObject newAnimal = Instantiate(birdPrefab, transform.position + new Vector3(0, Random.Range(), 0), transform.rotation, transform);
     }
 }
