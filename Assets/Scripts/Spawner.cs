@@ -8,9 +8,13 @@ public abstract class Spawner : MonoBehaviour
     protected List<GameObject> prefabs;
 
     [SerializeField]
+    protected List<GameObject> obstacles;
+
+    [SerializeField]
     protected GameObject playerReference;
 
     protected GameObject starPrefab;
+
 
     protected uint indexOfLastSpawned;
 
@@ -25,11 +29,11 @@ public abstract class Spawner : MonoBehaviour
         }
     }
 
-    public abstract void Spawn(bool spawnStar);
+    public abstract void Spawn(bool spawnStar, bool spawnObstacle);
 
     protected IEnumerator RemoveEnvironmentPlaceholder(GameObject prefab)
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         Destroy(prefab);
     }
 }

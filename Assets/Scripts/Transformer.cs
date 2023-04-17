@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Transformer : MonoBehaviour
 {
-    public Sprite BirdSprite;
-    public Sprite FishSprite;
+    public Sprite birdSprite;
+    public Sprite fishSprite;
 
-    private SpriteRenderer spr;
+    private SpriteRenderer sprite;
     public bool isFish;
 
     private void Start()
     {
-        spr = GetComponent<SpriteRenderer>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Water") {
-            spr.sprite = FishSprite;
+            sprite.sprite = fishSprite;
             isFish = true;
         }
     }
@@ -27,7 +27,7 @@ public class Transformer : MonoBehaviour
     {
         if (collision.gameObject.tag == "Water") {
             isFish = false;
-            spr.sprite = BirdSprite;
+            sprite.sprite = birdSprite;
         }
     }
 }

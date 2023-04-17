@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class FlockManager : MonoBehaviour
 {
-    public GameObject playerPrefab;
+    public GameObject animalPrefab;
     public GameObject leaderBird;
     public List<GameObject> flock = new List<GameObject>();
 
+    private FlockMovement movement;
+
     private void Start()
     {
-        leaderBird = this.gameObject;
+        movement = GetComponent< FlockMovement>();
+        leaderBird = Instantiate(animalPrefab, transform);
         flock.Add(leaderBird);
     }
 
@@ -24,39 +27,45 @@ public class FlockManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "powerup")
+        if (collision.tag == "Star")
         {
-            AddPlayerToTheFlock();
+            AddAnimalToTheFlock();
             Destroy(collision.gameObject);
         }
-
-        if (collision.gameObject.tag == "Hurdle")
+        else if (collision.tag == "Obstacle")
         {
-            int flockCount = flock.Count;
-            if (flockCount > 1)
+            if (movement.movementSpeed >= 30)
             {
-                GameObject lastBird = flock[flockCount - 1];
-                flock.RemoveAt(flockCount - 1);
-
-                Destroy(lastBird);
                 Destroy(collision.gameObject);
             }
             else
             {
-                Destroy(this.gameObject);
+                int flockCount = flock.Count;
+                if (flockCount > 1)
+                {
+                    GameObject lastBird = flock[flockCount - 1];
+                    flock.RemoveAt(flockCount - 1);
+
+                    Destroy(lastBird);
+                    Destroy(collision.gameObject);
+                }
+                else
+                {
+                    print("Game Over");
+                    Destroy(this.gameObject);
+                }
             }
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
     }
 
     private const float GridCellSize = 2f;
     private Dictionary<Vector2Int, List<Vector3>> flockPositions = new Dictionary<Vector2Int, List<Vector3>>();
 
-    private void AddPlayerToTheFlock()
+    private void AddAnimalToTheFlock()
     {
         float radius = 3f;
         float minDistance = 3f;
@@ -83,8 +92,7 @@ public class FlockManager : MonoBehaviour
             }
         }
 
-        GameObject newBird = Instantiate(playerPrefab, randomPosition, Quaternion.identity);
-        newBird.transform.SetParent(this.transform);
+        GameObject newBird = Instantiate(animalPrefab, randomPosition, Quaternion.identity, transform);
         flock.Add(newBird);
 
         Vector2Int newGridPosition = GetGridPosition(randomPosition);
