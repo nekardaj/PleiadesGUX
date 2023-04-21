@@ -11,7 +11,7 @@ public class LandscapeSpawner : Spawner
     void Start()
     {
         indexOfLastSpawned = 0;
-        prefabWidth = prefabs[0].GetComponent<SpriteRenderer>().size.x;
+        prefabWidth = prefabs[0].GetComponent<SpriteRenderer>().size.x * 0.97f;
         prefabHeight = prefabs[0].GetComponent<SpriteRenderer>().size.y;
         SetSortingLayers();
         starPrefab = GetComponent<SpawnManager>().starPrefab;

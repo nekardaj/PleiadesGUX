@@ -8,6 +8,7 @@ TagManager:
   - Water
   - Obstacle
   - Sky
+  - Environment
   layers:
   - Default
   - TransparentFX
