@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1902452427086933463}
   - component: {fileID: 5994730523214661469}
+  - component: {fileID: 613237729399344868}
   m_Layer: 0
   m_Name: 21
   m_TagString: Environment
@@ -85,6 +86,60 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &613237729399344868
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3607380447881911963}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 20.4, y: 10.8}
+    newSize: {x: 20.4, y: 10.8}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 10.221909, y: -5.4113307}
+      - {x: 10.215164, y: -3.3509011}
+      - {x: 9.778611, y: -3.19554}
+      - {x: 9.548592, y: -3.2026515}
+      - {x: 8.869183, y: -2.818154}
+      - {x: 7.732576, y: -2.728969}
+      - {x: 6.5707927, y: -2.4734662}
+      - {x: 5.6956873, y: -2.3441217}
+      - {x: 4.5832443, y: -2.774108}
+      - {x: 3.7956433, y: -2.8425324}
+      - {x: 2.3348434, y: -2.6678355}
+      - {x: 0.8015685, y: -2.0496738}
+      - {x: -0.1005826, y: -1.7030977}
+      - {x: -0.63738734, y: -1.8197383}
+      - {x: -0.89507234, y: -1.5649596}
+      - {x: -1.4595155, y: -1.3318425}
+      - {x: -2.1195602, y: -1.8830851}
+      - {x: -3.1842523, y: -2.394112}
+      - {x: -4.4325275, y: -1.2565345}
+      - {x: -4.843518, y: -1.1146845}
+      - {x: -4.9747753, y: -0.95242745}
+      - {x: -5.5878577, y: -0.55538493}
+      - {x: -6.006365, y: -0.3201052}
+      - {x: -7.7131987, y: -1.0338905}
+      - {x: -8.432913, y: -0.72323525}
+      - {x: -9.034009, y: -0.541867}
+      - {x: -9.509812, y: -0.79844266}
+      - {x: -10.201239, y: -0.93122345}
+      - {x: -10.207772, y: -5.3911633}
 --- !u!1 &5239831436987119278
 GameObject:
   m_ObjectHideFlags: 0
