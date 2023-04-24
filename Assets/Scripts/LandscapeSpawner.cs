@@ -6,7 +6,7 @@ using UnityEngine;
 public class LandscapeSpawner : Spawner
 {
 
-    protected ushort lastHeight;
+    public ushort lastHeight;
 
     void Start()
     {

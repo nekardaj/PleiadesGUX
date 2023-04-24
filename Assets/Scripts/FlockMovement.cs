@@ -7,7 +7,7 @@ using DG.Tweening;
 public class FlockMovement : MonoBehaviour
 {
     public float turningCoefficient = 1.5f;
-    public float movementSpeed = 20;
+    public float movementSpeed = 15;
 
     private Vector3 cameraOffset;
 
@@ -27,7 +27,7 @@ public class FlockMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             movementSpeed = 60;
-            DOTween.To(() => movementSpeed, x => movementSpeed = x, 20, 0.7f);
+            DOTween.To(() => movementSpeed, x => movementSpeed = x, 15, 0.7f);
         }
 
         SetRotation();

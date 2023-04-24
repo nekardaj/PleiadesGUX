@@ -14,7 +14,7 @@ public class DarknessSpawner : Spawner
         SetSortingLayers();
     }
 
-    public override void Spawn(bool spawnStar, bool spawnObstacle)
+    public override void Spawn()
     {
         GameObject newDarkness = Instantiate(prefabs[Random.Range(0, prefabs.Count)], new Vector3(indexOfLastSpawned * prefabWidth + 50, prefabHeight, 0), Quaternion.identity);
         StartCoroutine(RemoveEnvironmentPlaceholder(newDarkness));

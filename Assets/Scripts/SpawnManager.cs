@@ -33,7 +33,6 @@ public class SpawnManager : MonoBehaviour
         {
             bool spawnStar = false;
             bool spawnObstacle = false;
-            //print((indexOfLastSpawned / spawnInterval > starsSpawned) + " " + (indexOfLastSpawned / spawnInterval) + " " + starsSpawned);
             if (indexOfLastSpawned / spawnInterval > starsSpawned)
             {
                 spawnStar = true;
@@ -50,28 +49,40 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnEnvironment(bool spawnStar, bool spawnObstacle)
     {
-        darknessSpawner.Spawn(false, false);
+        darknessSpawner.Spawn();
         if (spawnStar)
         {
             if (lastStarLayer)
             {
-                print("Spawning star underwater");
                 landscapeSpawner.Spawn(false, false);
-                underwaterSpawner.Spawn(true, spawnObstacle);
+                if (landscapeSpawner.lastHeight == 0)
+                {
+                    print("ZERO");
+                    underwaterSpawner.Spawn(true, spawnObstacle, true);
+                }
+                else
+                {
+                    underwaterSpawner.Spawn(true, spawnObstacle, false);
+                }
             }
             else
             {
-                print("Spawning star landscape");
                 landscapeSpawner.Spawn(true, spawnObstacle);
-                underwaterSpawner.Spawn(false, false);
+                if (landscapeSpawner.lastHeight == 0)
+                {
+                    underwaterSpawner.Spawn(false, false, true);
+                }
+                else
+                {
+                    underwaterSpawner.Spawn(false, false, false);
+                }
             }
             lastStarLayer = !lastStarLayer;
         }
         else
         {
             landscapeSpawner.Spawn(false, spawnObstacle);
-            underwaterSpawner.Spawn(false, spawnObstacle);
+            underwaterSpawner.Spawn(false, spawnObstacle, false);
         }
-        if (spawnObstacle) print("  with obstacle");
     }
 }
