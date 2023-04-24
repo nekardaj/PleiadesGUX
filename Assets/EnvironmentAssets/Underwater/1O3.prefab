@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3740721225679010230}
   - component: {fileID: 567253108194859314}
   m_Layer: 0
-  m_Name: O13
+  m_Name: 1O3
   m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d1e55dfa432e5e34bb16b437f9a7dab3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
