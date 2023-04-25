@@ -12,6 +12,11 @@ public class FlockManager : MonoBehaviour
     private FlockMovement movement;
     private bool isInEnvironment;
 
+    private bool aligningFlock = false;
+
+    private Coroutine alignCoroutine;
+    private Coroutine DisperseFlockCoroutine;
+
     private void Start()
     {
         movement = GetComponent< FlockMovement>();
@@ -27,6 +32,33 @@ public class FlockManager : MonoBehaviour
         for (int i = 1; i < flock.Count; i++)
         {
             flock[i].transform.rotation = leaderBird.transform.rotation;
+        }
+
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    AddAnimalToTheFlock();
+        //}
+
+        if (Input.GetKey(KeyCode.X))
+        {
+            if (!aligningFlock)
+            {
+                StartCoroutine(AlignFlock());
+                aligningFlock = true;
+            }
+            // Stop the DisperseFlock coroutine if it is still running
+            if (DisperseFlockCoroutine != null)
+            {
+                StopCoroutine(DisperseFlockCoroutine);
+            }
+        }
+        else
+        {
+            if (aligningFlock)
+            {
+                DisperseFlockCoroutine = StartCoroutine(DisperseFlock());
+                aligningFlock = false;
+            }
         }
     }
 
@@ -158,6 +190,72 @@ public class FlockManager : MonoBehaviour
 
         return nearbyPositions;
     }
+
+    private IEnumerator AlignFlock()
+    {
+        float minDistance = 2f;
+        float distanceBehindLeader = 2f; // distance behind the leader bird to generate new birds
+        float offsetDistance = 2f; // distance to offset each bird's target position
+        Vector3 offset = -leaderBird.transform.forward * distanceBehindLeader;
+
+        // Store the original offset for each bird from the leader bird
+        List<Vector3> offsets = new List<Vector3>();
+        for (int i = 0; i < flock.Count - 1; i++)
+        {
+            Vector3 offsetFromLeader = flock[i + 1].transform.position - leaderBird.transform.position;
+            offsets.Add(offsetFromLeader);
+        }
+
+        Vector3 targetOffset = offsetDistance * leaderBird.transform.right;
+
+        float duration = 3f; // duration of alignment movement
+
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            for (int i = 1; i < flock.Count; i++)
+            {
+                Vector3 targetPosition = leaderBird.transform.position + leaderBird.transform.forward * (i * minDistance) + offset + offsets[i - 1] + targetOffset * (i - 1);
+                targetPosition.y = leaderBird.transform.position.y; // set y-axis position to that of the leader bird
+                Vector3 currentPosition = flock[i].transform.position;
+                Vector3 newPosition = Vector3.Lerp(currentPosition, targetPosition, t / duration);
+                flock[i].transform.position = newPosition;
+                flock[i].transform.rotation = leaderBird.transform.rotation;
+            }
+
+            yield return null; // wait for the next frame
+        }
+    }
+
+
+    private IEnumerator DisperseFlock()
+    {
+        float minDistance = 2f;
+        float distanceBehindLeader = 2f; // distance behind the leader bird to generate new birds
+        float offsetDistance = 2f; // distance to offset each bird's target position
+        Vector3 offset = -leaderBird.transform.forward * distanceBehindLeader;
+
+        float duration = 3f; // duration of alignment movement
+        float t = 0f;
+
+        while (t < duration)
+        {
+            for (int i = 1; i < flock.Count; i++)
+            {
+                Vector3 randomPosition = leaderBird.transform.position + Random.insideUnitSphere * minDistance;
+                randomPosition.y += Random.Range(-0.5f, 0.5f); // randomize the y-axis position by adding a random value
+                Vector3 targetOffset = (i - 1) * offsetDistance * leaderBird.transform.right;
+                Vector3 targetPosition = randomPosition + offset + targetOffset;
+                Vector3 currentPosition = flock[i].transform.position;
+                Vector3 newPosition = Vector3.Lerp(currentPosition, targetPosition, t / duration);
+                flock[i].transform.position = newPosition;
+                flock[i].transform.rotation = Quaternion.Lerp(flock[i].transform.rotation, leaderBird.transform.rotation, t / duration);
+            }
+
+            t += Time.deltaTime;
+            yield return null; // wait for the next frame
+        }
+    }
+
 
 }
 
