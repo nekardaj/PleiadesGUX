@@ -14,6 +14,7 @@ public class FlockManager : MonoBehaviour
     {
         movement = GetComponent< FlockMovement>();
         leaderBird = Instantiate(animalPrefab, transform);
+        leaderBird.GetComponent<Transformer>().flock = this;
         flock.Add(leaderBird);
     }
 
@@ -25,7 +26,7 @@ public class FlockManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void SolveCollisionEnter(Collider2D collision)
     {
         if (collision.tag == "Star")
         {
@@ -56,10 +57,15 @@ public class FlockManager : MonoBehaviour
                 }
             }
         }
+        else if (collision.tag == "Environment")
+        {
+
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void SolveCollisionExit(Collider2D collision)
     {
+
     }
 
     private const float GridCellSize = 2f;
@@ -93,6 +99,7 @@ public class FlockManager : MonoBehaviour
         }
 
         GameObject newBird = Instantiate(animalPrefab, randomPosition, Quaternion.identity, transform);
+        newBird.GetComponent<Transformer>().flock = this;
         flock.Add(newBird);
 
         Vector2Int newGridPosition = GetGridPosition(randomPosition);

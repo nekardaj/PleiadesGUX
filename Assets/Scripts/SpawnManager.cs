@@ -13,7 +13,7 @@ public class SpawnManager : MonoBehaviour
     private LandscapeSpawner landscapeSpawner;
     private UnderwaterSpawner underwaterSpawner;
 
-    private int indexOfLastSpawned = 0; // Index of the last tile spawned
+    public int indexOfLastSpawned = 0; // Index of the last tile spawned
     private int starsSpawned = 0; // Number of stars spawned
     private int spawnInterval = 7; // Every *spawnInterval* tiles a star spawns
     private bool lastStarLayer = false; // True - last star was spawned in landscape, False - last star was spawned underwater
@@ -55,9 +55,8 @@ public class SpawnManager : MonoBehaviour
             if (lastStarLayer)
             {
                 landscapeSpawner.Spawn(false, false);
-                if (landscapeSpawner.lastHeight == 0)
+                if (landscapeSpawner.lastHadZero)
                 {
-                    print("ZERO");
                     underwaterSpawner.Spawn(true, spawnObstacle, true);
                 }
                 else
@@ -68,7 +67,7 @@ public class SpawnManager : MonoBehaviour
             else
             {
                 landscapeSpawner.Spawn(true, spawnObstacle);
-                if (landscapeSpawner.lastHeight == 0)
+                if (landscapeSpawner.lastHadZero)
                 {
                     underwaterSpawner.Spawn(false, false, true);
                 }
@@ -82,7 +81,14 @@ public class SpawnManager : MonoBehaviour
         else
         {
             landscapeSpawner.Spawn(false, spawnObstacle);
-            underwaterSpawner.Spawn(false, spawnObstacle, false);
+            if (landscapeSpawner.lastHadZero)
+            {
+                underwaterSpawner.Spawn(false, spawnObstacle, true);
+            }
+            else
+            {
+                underwaterSpawner.Spawn(false, spawnObstacle, false);
+            }
         }
     }
 }

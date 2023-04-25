@@ -27,7 +27,7 @@ public class FlockMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             movementSpeed = 60;
-            DOTween.To(() => movementSpeed, x => movementSpeed = x, 15, 0.7f);
+            DOTween.To(() => movementSpeed, x => movementSpeed = x, 15, 0.5f);
         }
 
         SetRotation();

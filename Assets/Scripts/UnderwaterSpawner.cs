@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UnderwaterSpawner : Spawner
 {
 
     protected ushort lastHeight;
+    public List<GameObject> backgrounds;
 
     void Start()
     {
@@ -15,30 +17,27 @@ public class UnderwaterSpawner : Spawner
         prefabHeight = prefabs[0].GetComponent<SpriteRenderer>().size.y;
         SetSortingLayers();
         starPrefab = GetComponent<SpawnManager>().starPrefab;
+        lastHeight = 0;
     }
 
     public override void Spawn(bool spawnStar, bool spawnObstacle, bool forceZero)
     {
-        List<GameObject> suitablePrefabs = prefabs.Where(prefab => prefab.name.StartsWith(lastHeight.ToString())).ToList();
+        List<GameObject> suitablePrefabs = prefabs.Where(prefab => prefab.name.StartsWith(lastHeight.ToString()) && ((prefab.name.Length == 2 && !prefab.name.EndsWith('0')) || (prefab.name.Length == 3 && prefab.name[1] == 'O'))).ToList();
         if (forceZero)
         {
-            //suitablePrefabs = suitablePrefabs.Where(prefab => prefab.name.Length == 3 && prefab.name[1] == '0').ToList();
-            foreach (GameObject prefab in suitablePrefabs)
-            {
-                print(prefab.name);
-            }
-            suitablePrefabs = suitablePrefabs.Where(prefab => prefab.name.EndsWith('0')).ToList();
+            suitablePrefabs = prefabs.Where(prefab => prefab.name.StartsWith(lastHeight.ToString()) && prefab.name.Length == 3 && prefab.name[1] == '0').ToList();
         }
         GameObject prefabToSpawn = suitablePrefabs[Random.Range(0, suitablePrefabs.Count)];
         lastHeight = ushort.Parse(prefabToSpawn.name.Substring(prefabToSpawn.name.Length - 1));
-        GameObject newUnderwater = Instantiate(prefabToSpawn, new Vector3(indexOfLastSpawned * prefabWidth + 50, -prefabHeight / 2, 0), Quaternion.identity);
+        GameObject newUnderwater = Instantiate(prefabToSpawn, new Vector3(indexOfLastSpawned * prefabWidth + 35, -prefabHeight / 2, 0), Quaternion.identity);
+        Instantiate(backgrounds[Random.Range(0, backgrounds.Count)], newUnderwater.transform);
         if (spawnStar)
         {
-            Instantiate(starPrefab, newUnderwater.transform.GetChild(0));
+            Instantiate(starPrefab, newUnderwater.transform.GetChild(Random.Range(0, newUnderwater.transform.childCount - 1)));
         }
         if (spawnObstacle)
         {
-            Instantiate(obstacles[Random.Range(0, obstacles.Count)], new Vector3(indexOfLastSpawned * prefabWidth + 50, -prefabHeight / 2, 0), Quaternion.identity, newUnderwater.transform);
+            Instantiate(obstacles[Random.Range(0, obstacles.Count)], newUnderwater.transform.GetChild(Random.Range(0, newUnderwater.transform.childCount - 1)));
         }
 
         StartCoroutine(RemoveEnvironmentPlaceholder(newUnderwater));

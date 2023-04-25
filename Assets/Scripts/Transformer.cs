@@ -8,6 +8,7 @@ public class Transformer : MonoBehaviour
     public Sprite fishSprite;
 
     private SpriteRenderer sprite;
+    public FlockManager flock;
     public bool isFish;
 
     private void Start()
@@ -21,6 +22,10 @@ public class Transformer : MonoBehaviour
             sprite.sprite = fishSprite;
             isFish = true;
         }
+        else
+        {
+            flock.SolveCollisionEnter(collision);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -28,6 +33,10 @@ public class Transformer : MonoBehaviour
         if (collision.gameObject.tag == "Water") {
             isFish = false;
             sprite.sprite = birdSprite;
+        }
+        else
+        {
+            flock.SolveCollisionExit(collision);
         }
     }
 }
