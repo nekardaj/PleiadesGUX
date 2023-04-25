@@ -16,7 +16,7 @@ public abstract class Spawner : MonoBehaviour
     protected GameObject starPrefab;
 
 
-    protected uint indexOfLastSpawned;
+    public uint indexOfLastSpawned;
 
     public float prefabWidth;
     protected float prefabHeight;
@@ -29,7 +29,14 @@ public abstract class Spawner : MonoBehaviour
         }
     }
 
-    public abstract void Spawn(bool spawnStar, bool spawnObstacle);
+    public virtual void Spawn(bool spawnStar, bool spawnObstacle, bool forceZero)
+    { }
+    public virtual void Spawn(bool spawnStar, bool spawnObstacle)
+    { }
+    public virtual void Spawn(bool spawnStar)
+    { }
+    public virtual void Spawn()
+    { }    
 
     protected IEnumerator RemoveEnvironmentPlaceholder(GameObject prefab)
     {
