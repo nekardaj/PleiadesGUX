@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Transformer : MonoBehaviour
+public class AnimalManager : MonoBehaviour
 {
     public Sprite birdSprite;
     public Sprite fishSprite;

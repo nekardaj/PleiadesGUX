@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class FlockManager : MonoBehaviour
 {
@@ -9,31 +10,34 @@ public class FlockManager : MonoBehaviour
     public List<GameObject> flock = new List<GameObject>();
 
     private FlockMovement movement;
+    private bool isInEnvironment;
 
     private void Start()
     {
         movement = GetComponent< FlockMovement>();
         leaderBird = Instantiate(animalPrefab, transform);
-        leaderBird.GetComponent<Transformer>().flock = this;
+        leaderBird.GetComponent<AnimalManager>().flock = this;
+        movement.leadingBird = leaderBird.transform;
         flock.Add(leaderBird);
+        isInEnvironment = false;
     }
 
     private void Update()
     {
-        for (int i = 0; i < flock.Count; i++)
+        for (int i = 1; i < flock.Count; i++)
         {
-            flock[i].transform.rotation = this.transform.rotation;
+            flock[i].transform.rotation = leaderBird.transform.rotation;
         }
     }
 
     public void SolveCollisionEnter(Collider2D collision)
     {
-        if (collision.tag == "Star")
+        if (collision.CompareTag("Star"))
         {
             AddAnimalToTheFlock();
             Destroy(collision.gameObject);
         }
-        else if (collision.tag == "Obstacle")
+        else if (collision.CompareTag("Obstacle"))
         {
             if (movement.movementSpeed >= 30)
             {
@@ -41,31 +45,50 @@ public class FlockManager : MonoBehaviour
             }
             else
             {
-                int flockCount = flock.Count;
-                if (flockCount > 1)
-                {
-                    GameObject lastBird = flock[flockCount - 1];
-                    flock.RemoveAt(flockCount - 1);
-
-                    Destroy(lastBird);
-                    Destroy(collision.gameObject);
-                }
-                else
-                {
-                    print("Game Over");
-                    Destroy(this.gameObject);
-                }
+                Collision(collision);
             }
         }
-        else if (collision.tag == "Environment")
+        else if (collision.CompareTag("Environment"))
         {
+            if (isInEnvironment) return;
 
+            isInEnvironment = true;
+            Collision(collision);
+            foreach (GameObject animal in flock)
+            {
+                animal.GetComponent<SpriteRenderer>().DOColor(new Color(0.5f, 0.5f, 0.5f), 0.25f);
+            }
         }
     }
 
     public void SolveCollisionExit(Collider2D collision)
     {
+        if (collision.CompareTag("Environment"))
+        {
+            isInEnvironment = false;
+            foreach (GameObject animal in flock)
+            {
+                animal.GetComponent<SpriteRenderer>().DOColor(Color.white, 0.5f);
+            }
+        }
+    }
 
+    private void Collision(Collider2D collision)
+    {
+        int flockCount = flock.Count;
+        if (flockCount > 1)
+        {
+            GameObject lastBird = flock[flockCount - 1];
+            flock.RemoveAt(flockCount - 1);
+
+            Destroy(lastBird);
+            if (collision.CompareTag("Obstacle")) Destroy(collision.gameObject);
+        }
+        else
+        {
+            print("Game Over");
+            Destroy(this.gameObject);
+        }
     }
 
     private const float GridCellSize = 2f;
@@ -99,7 +122,7 @@ public class FlockManager : MonoBehaviour
         }
 
         GameObject newBird = Instantiate(animalPrefab, randomPosition, Quaternion.identity, transform);
-        newBird.GetComponent<Transformer>().flock = this;
+        newBird.GetComponent<AnimalManager>().flock = this;
         flock.Add(newBird);
 
         Vector2Int newGridPosition = GetGridPosition(randomPosition);

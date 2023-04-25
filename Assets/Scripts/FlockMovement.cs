@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
+using UnityEditor.Experimental.GraphView;
 
 public class FlockMovement : MonoBehaviour
 {
     public float turningCoefficient = 1.5f;
-    public float movementSpeed = 15;
+    public float movementSpeed = 10;
 
     private Vector3 cameraOffset;
 
     private Camera mainCamera;
+
+    public Transform leadingBird;
 
     public GameObject skyPlaceholder;
     public GameObject underwaterPlaceholder;
@@ -27,12 +30,12 @@ public class FlockMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             movementSpeed = 60;
-            DOTween.To(() => movementSpeed, x => movementSpeed = x, 15, 0.5f);
+            DOTween.To(() => movementSpeed, x => movementSpeed = x, 10, 0.5f);
         }
 
         SetRotation();
 
-        Vector3 deltaDistance = movementSpeed * transform.right * Time.deltaTime;
+        Vector3 deltaDistance = movementSpeed * leadingBird.right * Time.deltaTime;
         transform.position += deltaDistance;
         mainCamera.transform.position = transform.position + cameraOffset;
         skyPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
@@ -45,34 +48,34 @@ public class FlockMovement : MonoBehaviour
     private void SetRotation()
     {
         float verticalInput = Input.GetAxis("Vertical");
-        float angle = transform.rotation.eulerAngles.z > 270 ? 360 - transform.rotation.eulerAngles.z : transform.rotation.eulerAngles.z;
+        float angle = leadingBird.rotation.eulerAngles.z > 270 ? 360 - leadingBird.rotation.eulerAngles.z : leadingBird.rotation.eulerAngles.z;
         if (verticalInput != 0 && Input.GetButton("Vertical"))
         {
-            transform.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) /*turningCoefficient*/);
+            leadingBird.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) /*turningCoefficient*/);
         }
         else
         {
-            if (transform.rotation.eulerAngles.z >= 270)
+            if (leadingBird.rotation.eulerAngles.z >= 270)
             {
-                transform.Rotate(0, 0, 1 - (Mathf.Abs(angle % 90)) / 90);
+                leadingBird.Rotate(0, 0, 1 - (Mathf.Abs(angle % 90)) / 90);
             }
-            else if (transform.rotation.eulerAngles.z <= 90)
+            else if (leadingBird.rotation.eulerAngles.z <= 90)
             {
-                transform.Rotate(0, 0, -(1 - (Mathf.Abs(angle % 90)) / 90));
+                leadingBird.Rotate(0, 0, -(1 - (Mathf.Abs(angle % 90)) / 90));
             }
 
-            if (transform.rotation.eulerAngles.z <= 3 || transform.rotation.eulerAngles.z >= 357)
+            if (leadingBird.rotation.eulerAngles.z <= 3 || leadingBird.rotation.eulerAngles.z >= 357)
             {
-                transform.rotation = Quaternion.identity;
+                leadingBird.rotation = Quaternion.identity;
             }
         }
-        if (transform.rotation.eulerAngles.z < 270 && transform.rotation.eulerAngles.z > 180)
+        if (leadingBird.rotation.eulerAngles.z < 270 && leadingBird.rotation.eulerAngles.z > 180)
         {
-            transform.rotation = Quaternion.Euler(0, 0, -89);
+            leadingBird.rotation = Quaternion.Euler(0, 0, -89);
         }
-        else if (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 180)
+        else if (leadingBird.rotation.eulerAngles.z > 90 && leadingBird.rotation.eulerAngles.z < 180)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 89);
+            leadingBird.rotation = Quaternion.Euler(0, 0, 89);
         }
     }
 
