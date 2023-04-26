@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor.Experimental.GraphView;
 
 public class FlockMovement : MonoBehaviour
 {
-    public float turningCoefficient = 1.5f;
+    public float turningCoefficient = 3f; //3 for build, 1 for editor
     public float movementSpeed = 10;
 
     private bool inTween = false;
@@ -26,6 +25,7 @@ public class FlockMovement : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
+        mainCamera.transform.position += new Vector3(0, transform.position.y, 0);
         cameraOffset = mainCamera.transform.position - transform.position;
         flockManager = GetComponent<FlockManager>();
     }
@@ -46,7 +46,7 @@ public class FlockMovement : MonoBehaviour
             else
             {
                 inTween = true;
-                movementSpeed = 60;
+                movementSpeed = 45;
                 DOTween.To(() => movementSpeed, x => movementSpeed = x, 10, 0.5f);
                 StartCoroutine(TweenChecker(0.5f));
             }
@@ -61,16 +61,22 @@ public class FlockMovement : MonoBehaviour
         }
 
         SetRotation();
-
         Vector3 deltaDistance = movementSpeed * leadingAnimal.right * Time.deltaTime;
         transform.position += deltaDistance;
-        mainCamera.transform.position = transform.position + cameraOffset;
+        AdjustCamera();
         skyPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
         underwaterPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
 
         ConstrainPositions();
     }
 
+    private void AdjustCamera()
+    {
+        float defaultY = (transform.position + cameraOffset).y;
+        float modifiedY = (defaultY / (skyPlaceholder.transform.position.y - underwaterPlaceholder.transform.position.y * 0.9f) + 1) / 2;
+        float easedY = EaseInOutSigmoid(underwaterPlaceholder.transform.position.y * 0.9f, skyPlaceholder.transform.position.y, modifiedY, 12.5f);
+        mainCamera.transform.position = new Vector3(transform.position.x + cameraOffset.x, easedY, cameraOffset.z);
+    }
 
     private void SetRotation()
     {
@@ -78,7 +84,7 @@ public class FlockMovement : MonoBehaviour
         float angle = leadingAnimal.rotation.eulerAngles.z > 270 ? 360 - leadingAnimal.rotation.eulerAngles.z : leadingAnimal.rotation.eulerAngles.z;
         if (verticalInput != 0 && Input.GetButton("Vertical"))
         {
-            leadingAnimal.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) /*turningCoefficient*/);
+            leadingAnimal.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
         }
         else
         {
@@ -127,28 +133,17 @@ public class FlockMovement : MonoBehaviour
         }
     }
 
-    private void ShrinkFlock()
-    {
-        List<GameObject> positionsToGo = flockManager.alignPositions;
-        if (flockManager.flock[1].transform.position == positionsToGo[0].transform.position)
-        {
-            return;
-        }
-        
-    }
-
-    private void ExpandFlock()
-    {
-        List<GameObject> positionsToGo = flockManager.spawnPositions;
-        if (flockManager.flock[1].transform.position == positionsToGo[0].transform.position)
-        {
-            return;
-        }
-    }
-
     private IEnumerator TweenChecker(float duration)
     {
         yield return new WaitForSeconds(duration);
         inTween = false;
+    }
+
+    float EaseInOutSigmoid(float startValue, float endValue, float time, float steepness)
+    {
+        float difference = endValue - startValue;
+        float sigmoid = 1 / (1 + Mathf.Exp(-steepness * (time - 0.5f)));
+        float finalValue = sigmoid * difference + startValue;
+        return finalValue;
     }
 }

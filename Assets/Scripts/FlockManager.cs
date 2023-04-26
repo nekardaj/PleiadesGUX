@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class FlockManager : MonoBehaviour
 {
@@ -76,7 +77,7 @@ public class FlockManager : MonoBehaviour
         }
         else if (collision.CompareTag("Obstacle"))
         {
-            if (movement.movementSpeed >= 30)
+            if (movement.movementSpeed >= 25)
             {
                 Destroy(collision.gameObject);
             }
@@ -87,7 +88,6 @@ public class FlockManager : MonoBehaviour
         }
         else if (collision.CompareTag("Environment"))
         {
-            return;
             if (isInEnvironment) return;
 
             isInEnvironment = true;
