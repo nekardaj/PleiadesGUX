@@ -6,11 +6,14 @@ using DG.Tweening;
 public class FlockManager : MonoBehaviour
 {
     public GameObject animalPrefab;
-    public GameObject leaderBird;
+    public GameObject leadingAnimal;
     public List<GameObject> flock = new List<GameObject>();
+    public List<GameObject> spawnPositions= new List<GameObject>();
+    public List<GameObject> alignPositions = new List<GameObject>();
 
     private FlockMovement movement;
     private bool isInEnvironment;
+    public bool isInWater = false;
 
     private bool aligningFlock = false;
 
@@ -20,10 +23,10 @@ public class FlockManager : MonoBehaviour
     private void Start()
     {
         movement = GetComponent< FlockMovement>();
-        leaderBird = Instantiate(animalPrefab, transform);
-        leaderBird.GetComponent<AnimalManager>().flock = this;
-        movement.leadingBird = leaderBird.transform;
-        flock.Add(leaderBird);
+        leadingAnimal = Instantiate(animalPrefab, transform);
+        leadingAnimal.GetComponent<AnimalManager>().flock = this;
+        movement.leadingAnimal = leadingAnimal.transform;
+        flock.Add(leadingAnimal);
         isInEnvironment = false;
     }
 
@@ -31,14 +34,15 @@ public class FlockManager : MonoBehaviour
     {
         for (int i = 1; i < flock.Count; i++)
         {
-            flock[i].transform.rotation = leaderBird.transform.rotation;
+            flock[i].transform.rotation = leadingAnimal.transform.rotation;
         }
 
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    AddAnimalToTheFlock();
-        //}
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            AddAnimalToTheFlock();
+        }
 
+        /*
         if (Input.GetKey(KeyCode.X))
         {
             if (!aligningFlock)
@@ -60,6 +64,7 @@ public class FlockManager : MonoBehaviour
                 aligningFlock = false;
             }
         }
+        */
     }
 
     public void SolveCollisionEnter(Collider2D collision)
@@ -82,6 +87,7 @@ public class FlockManager : MonoBehaviour
         }
         else if (collision.CompareTag("Environment"))
         {
+            return;
             if (isInEnvironment) return;
 
             isInEnvironment = true;
@@ -128,11 +134,16 @@ public class FlockManager : MonoBehaviour
 
     private void AddAnimalToTheFlock()
     {
+        GameObject newBird = Instantiate(animalPrefab, spawnPositions[flock.Count].transform.position, Quaternion.identity, transform);
+        newBird.GetComponent<AnimalManager>().flock = this;
+        flock.Add(newBird);
+
+        /*
         float radius = 3f;
         float minDistance = 3f;
         float distanceBehindLeader = 4f; // distance behind the leader bird to generate new birds
-        Vector3 offset = -leaderBird.transform.forward * distanceBehindLeader;
-        Vector3 randomPosition = leaderBird.transform.position + Random.insideUnitSphere * radius + offset;
+        Vector3 offset = -leadingAnimal.transform.forward * distanceBehindLeader;
+        Vector3 randomPosition = leadingAnimal.transform.position + Random.insideUnitSphere * radius + offset;
 
         bool positionIsSuitable = false;
         while (!positionIsSuitable)
@@ -147,7 +158,7 @@ public class FlockManager : MonoBehaviour
                 if (Vector3.Distance(randomPosition, position) < minDistance)
                 {
                     positionIsSuitable = false;
-                    randomPosition = leaderBird.transform.position + Random.insideUnitSphere * radius + offset;
+                    randomPosition = leadingAnimal.transform.position + Random.insideUnitSphere * radius + offset;
                     break;
                 }
             }
@@ -163,6 +174,7 @@ public class FlockManager : MonoBehaviour
             flockPositions[newGridPosition] = new List<Vector3>();
         }
         flockPositions[newGridPosition].Add(randomPosition);
+        */
     }
 
     private Vector2Int GetGridPosition(Vector3 position)
@@ -196,17 +208,17 @@ public class FlockManager : MonoBehaviour
         float minDistance = 2f;
         float distanceBehindLeader = 2f; // distance behind the leader bird to generate new birds
         float offsetDistance = 2f; // distance to offset each bird's target position
-        Vector3 offset = -leaderBird.transform.forward * distanceBehindLeader;
+        Vector3 offset = -leadingAnimal.transform.forward * distanceBehindLeader;
 
         // Store the original offset for each bird from the leader bird
         List<Vector3> offsets = new List<Vector3>();
         for (int i = 0; i < flock.Count - 1; i++)
         {
-            Vector3 offsetFromLeader = flock[i + 1].transform.position - leaderBird.transform.position;
+            Vector3 offsetFromLeader = flock[i + 1].transform.position - leadingAnimal.transform.position;
             offsets.Add(offsetFromLeader);
         }
 
-        Vector3 targetOffset = offsetDistance * leaderBird.transform.right;
+        Vector3 targetOffset = offsetDistance * leadingAnimal.transform.right;
 
         float duration = 3f; // duration of alignment movement
 
@@ -214,12 +226,12 @@ public class FlockManager : MonoBehaviour
         {
             for (int i = 1; i < flock.Count; i++)
             {
-                Vector3 targetPosition = leaderBird.transform.position + leaderBird.transform.forward * (i * minDistance) + offset + offsets[i - 1] + targetOffset * (i - 1);
-                targetPosition.y = leaderBird.transform.position.y; // set y-axis position to that of the leader bird
+                Vector3 targetPosition = leadingAnimal.transform.position + leadingAnimal.transform.forward * (i * minDistance) + offset + offsets[i - 1] + targetOffset * (i - 1);
+                targetPosition.y = leadingAnimal.transform.position.y; // set y-axis position to that of the leader bird
                 Vector3 currentPosition = flock[i].transform.position;
                 Vector3 newPosition = Vector3.Lerp(currentPosition, targetPosition, t / duration);
                 flock[i].transform.position = newPosition;
-                flock[i].transform.rotation = leaderBird.transform.rotation;
+                flock[i].transform.rotation = leadingAnimal.transform.rotation;
             }
 
             yield return null; // wait for the next frame
@@ -232,7 +244,7 @@ public class FlockManager : MonoBehaviour
         float minDistance = 2f;
         float distanceBehindLeader = 2f; // distance behind the leader bird to generate new birds
         float offsetDistance = 2f; // distance to offset each bird's target position
-        Vector3 offset = -leaderBird.transform.forward * distanceBehindLeader;
+        Vector3 offset = -leadingAnimal.transform.forward * distanceBehindLeader;
 
         float duration = 3f; // duration of alignment movement
         float t = 0f;
@@ -241,14 +253,14 @@ public class FlockManager : MonoBehaviour
         {
             for (int i = 1; i < flock.Count; i++)
             {
-                Vector3 randomPosition = leaderBird.transform.position + Random.insideUnitSphere * minDistance;
+                Vector3 randomPosition = leadingAnimal.transform.position + Random.insideUnitSphere * minDistance;
                 randomPosition.y += Random.Range(-0.5f, 0.5f); // randomize the y-axis position by adding a random value
-                Vector3 targetOffset = (i - 1) * offsetDistance * leaderBird.transform.right;
+                Vector3 targetOffset = (i - 1) * offsetDistance * leadingAnimal.transform.right;
                 Vector3 targetPosition = randomPosition + offset + targetOffset;
                 Vector3 currentPosition = flock[i].transform.position;
                 Vector3 newPosition = Vector3.Lerp(currentPosition, targetPosition, t / duration);
                 flock[i].transform.position = newPosition;
-                flock[i].transform.rotation = Quaternion.Lerp(flock[i].transform.rotation, leaderBird.transform.rotation, t / duration);
+                flock[i].transform.rotation = Quaternion.Lerp(flock[i].transform.rotation, leadingAnimal.transform.rotation, t / duration);
             }
 
             t += Time.deltaTime;

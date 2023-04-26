@@ -9,7 +9,6 @@ public class AnimalManager : MonoBehaviour
 
     private SpriteRenderer sprite;
     public FlockManager flock;
-    public bool isFish;
 
     private void Start()
     {
@@ -19,8 +18,8 @@ public class AnimalManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Water") {
+            flock.isInWater = true;
             sprite.sprite = fishSprite;
-            isFish = true;
         }
         else
         {
@@ -31,7 +30,7 @@ public class AnimalManager : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Water") {
-            isFish = false;
+            flock.isInWater = false;
             sprite.sprite = birdSprite;
         }
         else

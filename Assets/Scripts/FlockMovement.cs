@@ -10,11 +10,15 @@ public class FlockMovement : MonoBehaviour
     public float turningCoefficient = 1.5f;
     public float movementSpeed = 10;
 
+    private bool inTween = false;
+
     private Vector3 cameraOffset;
 
     private Camera mainCamera;
 
-    public Transform leadingBird;
+    private FlockManager flockManager;
+
+    public Transform leadingAnimal;
 
     public GameObject skyPlaceholder;
     public GameObject underwaterPlaceholder;
@@ -23,19 +27,42 @@ public class FlockMovement : MonoBehaviour
     {
         mainCamera = Camera.main;
         cameraOffset = mainCamera.transform.position - transform.position;
+        flockManager = GetComponent<FlockManager>();
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.Space) && !inTween)
         {
-            movementSpeed = 60;
-            DOTween.To(() => movementSpeed, x => movementSpeed = x, 10, 0.5f);
+            if (flockManager.isInWater)
+            {
+                inTween = true;
+                for (int i = 0; i < flockManager.flock.Count; i++)
+                {
+                    flockManager.flock[i].transform.DOLocalMove(flockManager.alignPositions[i].transform.localPosition, 1);
+                }
+                StartCoroutine(TweenChecker(1f));
+            }
+            else
+            {
+                inTween = true;
+                movementSpeed = 60;
+                DOTween.To(() => movementSpeed, x => movementSpeed = x, 10, 0.5f);
+                StartCoroutine(TweenChecker(0.5f));
+            }
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            for (int i = 0; i < flockManager.flock.Count; i++)
+            {
+                flockManager.flock[i].transform.DOLocalMove(flockManager.spawnPositions[i].transform.localPosition, 1);
+            }
+            StartCoroutine(TweenChecker(1f));
         }
 
         SetRotation();
 
-        Vector3 deltaDistance = movementSpeed * leadingBird.right * Time.deltaTime;
+        Vector3 deltaDistance = movementSpeed * leadingAnimal.right * Time.deltaTime;
         transform.position += deltaDistance;
         mainCamera.transform.position = transform.position + cameraOffset;
         skyPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
@@ -48,34 +75,34 @@ public class FlockMovement : MonoBehaviour
     private void SetRotation()
     {
         float verticalInput = Input.GetAxis("Vertical");
-        float angle = leadingBird.rotation.eulerAngles.z > 270 ? 360 - leadingBird.rotation.eulerAngles.z : leadingBird.rotation.eulerAngles.z;
+        float angle = leadingAnimal.rotation.eulerAngles.z > 270 ? 360 - leadingAnimal.rotation.eulerAngles.z : leadingAnimal.rotation.eulerAngles.z;
         if (verticalInput != 0 && Input.GetButton("Vertical"))
         {
-            leadingBird.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) /*turningCoefficient*/);
+            leadingAnimal.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) /*turningCoefficient*/);
         }
         else
         {
-            if (leadingBird.rotation.eulerAngles.z >= 270)
+            if (leadingAnimal.rotation.eulerAngles.z >= 270)
             {
-                leadingBird.Rotate(0, 0, 1 - (Mathf.Abs(angle % 90)) / 90);
+                leadingAnimal.Rotate(0, 0, 1 - (Mathf.Abs(angle % 90)) / 90);
             }
-            else if (leadingBird.rotation.eulerAngles.z <= 90)
+            else if (leadingAnimal.rotation.eulerAngles.z <= 90)
             {
-                leadingBird.Rotate(0, 0, -(1 - (Mathf.Abs(angle % 90)) / 90));
+                leadingAnimal.Rotate(0, 0, -(1 - (Mathf.Abs(angle % 90)) / 90));
             }
 
-            if (leadingBird.rotation.eulerAngles.z <= 3 || leadingBird.rotation.eulerAngles.z >= 357)
+            if (leadingAnimal.rotation.eulerAngles.z <= 3 || leadingAnimal.rotation.eulerAngles.z >= 357)
             {
-                leadingBird.rotation = Quaternion.identity;
+                leadingAnimal.rotation = Quaternion.identity;
             }
         }
-        if (leadingBird.rotation.eulerAngles.z < 270 && leadingBird.rotation.eulerAngles.z > 180)
+        if (leadingAnimal.rotation.eulerAngles.z < 270 && leadingAnimal.rotation.eulerAngles.z > 180)
         {
-            leadingBird.rotation = Quaternion.Euler(0, 0, -89);
+            leadingAnimal.rotation = Quaternion.Euler(0, 0, -89);
         }
-        else if (leadingBird.rotation.eulerAngles.z > 90 && leadingBird.rotation.eulerAngles.z < 180)
+        else if (leadingAnimal.rotation.eulerAngles.z > 90 && leadingAnimal.rotation.eulerAngles.z < 180)
         {
-            leadingBird.rotation = Quaternion.Euler(0, 0, 89);
+            leadingAnimal.rotation = Quaternion.Euler(0, 0, 89);
         }
     }
 
@@ -98,5 +125,30 @@ public class FlockMovement : MonoBehaviour
         {
             mainCamera.transform.position = new Vector3(mainCamera.transform.position.x, underwaterPlaceholder.transform.position.y, mainCamera.transform.position.z);
         }
+    }
+
+    private void ShrinkFlock()
+    {
+        List<GameObject> positionsToGo = flockManager.alignPositions;
+        if (flockManager.flock[1].transform.position == positionsToGo[0].transform.position)
+        {
+            return;
+        }
+        
+    }
+
+    private void ExpandFlock()
+    {
+        List<GameObject> positionsToGo = flockManager.spawnPositions;
+        if (flockManager.flock[1].transform.position == positionsToGo[0].transform.position)
+        {
+            return;
+        }
+    }
+
+    private IEnumerator TweenChecker(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        inTween = false;
     }
 }

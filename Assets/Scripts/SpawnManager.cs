@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
 
     public int indexOfLastSpawned = 0; // Index of the last tile spawned
     private int starsSpawned = 0; // Number of stars spawned
-    private int spawnInterval = 1; // Every *spawnInterval* tiles a star spawns
+    private int spawnInterval = 7; // Every *spawnInterval* tiles a star spawns
     private bool lastStarLayer = false; // True - last star was spawned in landscape, False - last star was spawned underwater
     public float obstacleSpawnChance = 0.1f;
 
