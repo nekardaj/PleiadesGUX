@@ -7,7 +7,9 @@ using DG.Tweening;
 public class FlockMovement : MonoBehaviour
 {
     public float turningCoefficient = 3f; //3 for build, 1 for editor
+    [Range(0.0f, 20.0f)]
     public float movementSpeed = 10;
+    private float timeAfterPress = 0f;
 
     private bool inTween = false;
 
@@ -28,6 +30,7 @@ public class FlockMovement : MonoBehaviour
         mainCamera.transform.position += new Vector3(0, transform.position.y, 0);
         cameraOffset = mainCamera.transform.position - transform.position;
         flockManager = GetComponent<FlockManager>();
+        DOTween.To(() => movementSpeed, x => movementSpeed = x, 10, 20);
     }
 
     void Update()
@@ -60,6 +63,9 @@ public class FlockMovement : MonoBehaviour
             StartCoroutine(TweenChecker(1f));
         }
 
+        if (Input.GetButtonDown("Vertical")) timeAfterPress = 0f;
+        else if (Input.GetButtonUp("Vertical")) timeAfterPress = 0f;
+
         SetRotation();
         Vector3 deltaDistance = movementSpeed * leadingAnimal.right * Time.deltaTime;
         transform.position += deltaDistance;
@@ -84,6 +90,11 @@ public class FlockMovement : MonoBehaviour
         float angle = leadingAnimal.rotation.eulerAngles.z > 270 ? 360 - leadingAnimal.rotation.eulerAngles.z : leadingAnimal.rotation.eulerAngles.z;
         if (verticalInput != 0 && Input.GetButton("Vertical"))
         {
+            timeAfterPress += Time.deltaTime;
+            if (angle < 90) print(angle / 90.0f);
+            else print((angle - 270.0f) / 90.0f);
+            float angleToRotate = angle < 90 ? verticalInput * 90 * Mathf.Sqrt(1 - Mathf.Pow(timeAfterPress - 1, 2)) : verticalInput * 90 * Mathf.Sqrt(1 - Mathf.Pow(timeAfterPress - 1, 2));
+            //leadingAnimal.eulerAngles = new Vector3(0, 0, angleToRotate);
             leadingAnimal.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
         }
         else

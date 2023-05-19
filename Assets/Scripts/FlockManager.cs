@@ -15,6 +15,7 @@ public class FlockManager : MonoBehaviour
     private FlockMovement movement;
     private bool isInEnvironment;
     public bool isInWater = false;
+    public bool colliding = true;
 
     private bool aligningFlock = false;
 
@@ -70,6 +71,7 @@ public class FlockManager : MonoBehaviour
 
     public void SolveCollisionEnter(Collider2D collision)
     {
+        if (!colliding) return;
         if (collision.CompareTag("Star"))
         {
             AddAnimalToTheFlock();
