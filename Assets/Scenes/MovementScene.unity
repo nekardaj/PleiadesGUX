@@ -620,7 +620,7 @@ PrefabInstance:
       objectReference: {fileID: 1908122528}
     - target: {fileID: 8586750650930270929, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
       propertyPath: turningCoefficient
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8586750650930270929, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
       propertyPath: underwaterPlaceholder
