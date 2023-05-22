@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
 
 public class FlockManager : MonoBehaviour
 {
@@ -17,16 +16,17 @@ public class FlockManager : MonoBehaviour
     public bool isInWater = false;
     public bool colliding = true;
 
-    private bool aligningFlock = false;
+    //private bool aligningFlock = false;
 
-    private Coroutine alignCoroutine;
-    private Coroutine DisperseFlockCoroutine;
+    //private Coroutine alignCoroutine;
+    //private Coroutine DisperseFlockCoroutine;
 
     private void Start()
     {
         movement = GetComponent< FlockMovement>();
         leadingAnimal = Instantiate(animalPrefab, transform);
-        leadingAnimal.GetComponent<AnimalManager>().flock = this;
+        leadingAnimal.GetComponent<AnimalManager>().manager = this;
+        leadingAnimal.GetComponent<AnimalManager>().movement = GetComponent<FlockMovement>();
         movement.leadingAnimal = leadingAnimal.transform;
         flock.Add(leadingAnimal);
         isInEnvironment = false;
@@ -34,10 +34,12 @@ public class FlockManager : MonoBehaviour
 
     private void Update()
     {
+        /*
         for (int i = 1; i < flock.Count; i++)
         {
             flock[i].transform.rotation = leadingAnimal.transform.rotation;
         }
+        */
 
         if (Input.GetKeyDown(KeyCode.D))
         {
@@ -137,7 +139,8 @@ public class FlockManager : MonoBehaviour
     private void AddAnimalToTheFlock()
     {
         GameObject newBird = Instantiate(animalPrefab, spawnPositions[flock.Count].transform.position, Quaternion.identity, transform);
-        newBird.GetComponent<AnimalManager>().flock = this;
+        newBird.GetComponent<AnimalManager>().manager = this;
+        newBird.GetComponent<AnimalManager>().movement = GetComponent<FlockMovement>();
         flock.Add(newBird);
 
         /*

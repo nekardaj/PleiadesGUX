@@ -326,7 +326,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025060281}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c48c060601a7949d8bf7668bdd0522f4, type: 3}
@@ -620,7 +620,7 @@ PrefabInstance:
       objectReference: {fileID: 1908122528}
     - target: {fileID: 8586750650930270929, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
       propertyPath: turningCoefficient
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8586750650930270929, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
       propertyPath: underwaterPlaceholder

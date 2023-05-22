@@ -12,8 +12,6 @@ public class FlockMovement : MonoBehaviour
     public float turningCoefficient = 10f;
     [Range(0.0f, 20.0f)]
     public float movementSpeed = 10;
-    private float timeAfterPress = 0f;
-    private float angleDuringPress = 0f;
 
     private bool inTween = false;
 
@@ -27,8 +25,6 @@ public class FlockMovement : MonoBehaviour
 
     public GameObject skyPlaceholder;
     public GameObject underwaterPlaceholder;
-
-    private TweenerCore<Quaternion, Vector3, QuaternionOptions> rotationTween;
 
     void Start()
     {
@@ -69,35 +65,6 @@ public class FlockMovement : MonoBehaviour
             StartCoroutine(TweenChecker(1f));
         }
 
-        if (Input.GetButtonDown("Vertical"))
-        {
-            timeAfterPress = 0f;
-            if (leadingAnimal.eulerAngles.z <= 90)
-                angleDuringPress = leadingAnimal.eulerAngles.z + 90;
-            else
-                angleDuringPress = leadingAnimal.eulerAngles.z - 270;
-        }
-        else if (Input.GetButtonUp("Vertical")) timeAfterPress = 0f;
-        /*
-        if (Input.GetButtonDown("Vertical"))
-        {
-            float verticalInput = Input.GetAxis("Vertical");
-            if (verticalInput > 0)
-            {
-                rotationTween = leadingAnimal.DORotate(new Vector3(0, 0, 90), 1);
-            }
-            else
-            {
-                rotationTween = leadingAnimal.DORotate(new Vector3(0, 0, -90), 1);
-            }
-        }
-        else if (Input.GetButtonUp("Vertical"))
-        {
-            rotationTween.Rewind();
-        }
-        */
-
-        //SetRotation();
         Vector3 deltaDistance = movementSpeed * leadingAnimal.right * Time.deltaTime;
         transform.position += deltaDistance;
         AdjustCamera();
@@ -126,36 +93,29 @@ public class FlockMovement : MonoBehaviour
         float angle = leadingAnimal.rotation.eulerAngles.z > 270 ? 360 - leadingAnimal.rotation.eulerAngles.z : leadingAnimal.rotation.eulerAngles.z;
         if (verticalInput != 0 && Input.GetButton("Vertical"))
         {
-            /*
-            timeAfterPress += Time.deltaTime;
-            leadingAnimal.eulerAngles = new Vector3(0, 0, verticalInput * (180 - angleDuringPress) * Mathf.Sqrt(1 - Mathf.Pow(timeAfterPress - 1, 2)));
-            print("Rotating " + (180 - angleDuringPress + " right now at " + leadingAnimal.eulerAngles.z));
-            */
             leadingAnimal.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
         }
         else
         {
 
-            if (leadingAnimal.rotation.eulerAngles.z <= 3 || leadingAnimal.rotation.eulerAngles.z >= 357)
+            if (leadingAnimal.rotation.eulerAngles.z <= 5 || leadingAnimal.rotation.eulerAngles.z >= 355)
             {
                 leadingAnimal.rotation = Quaternion.identity;
             }
             else if (leadingAnimal.rotation.eulerAngles.z >= 270)
             {
                 float before = leadingAnimal.eulerAngles.z;
-                leadingAnimal.Rotate(0, 0, 1 - (Mathf.Abs(angle % 90)) / 90 * turningCoefficient);
-                print("From " + before + " to " + leadingAnimal.eulerAngles.z);
+                leadingAnimal.Rotate(0, 0, (1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
             }
             else if (leadingAnimal.rotation.eulerAngles.z <= 90)
             {
                 leadingAnimal.Rotate(0, 0, -(1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
-                //print(-(1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
             }
 
         }
         if (leadingAnimal.rotation.eulerAngles.z < 270 && leadingAnimal.rotation.eulerAngles.z > 180)
         {
-            leadingAnimal.rotation = Quaternion.Euler(0, 0, -89);
+            leadingAnimal.rotation = Quaternion.Euler(0, 0, 271);
         }
         else if (leadingAnimal.rotation.eulerAngles.z > 90 && leadingAnimal.rotation.eulerAngles.z < 180)
         {
