@@ -16,6 +16,8 @@ public class FlockManager : MonoBehaviour
     public bool isInWater = false;
     public bool colliding = true;
 
+    public Vector3 flockCentre;
+
     //private bool aligningFlock = false;
 
     //private Coroutine alignCoroutine;
@@ -23,10 +25,11 @@ public class FlockManager : MonoBehaviour
 
     private void Start()
     {
-        movement = GetComponent< FlockMovement>();
-        leadingAnimal = Instantiate(animalPrefab, transform);
-        leadingAnimal.GetComponent<AnimalManager>().manager = this;
-        leadingAnimal.GetComponent<AnimalManager>().movement = GetComponent<FlockMovement>();
+        movement = GetComponent<FlockMovement>();
+        //leadingAnimal = Instantiate(animalPrefab, transform);
+        //leadingAnimal.GetComponent<AnimalManager>().manager = this;
+        //leadingAnimal.GetComponent<AnimalManager>().movement = GetComponent<FlockMovement>();
+        leadingAnimal = transform.GetChild(0).gameObject;
         movement.leadingAnimal = leadingAnimal.transform;
         flock.Add(leadingAnimal);
         isInEnvironment = false;
@@ -40,6 +43,12 @@ public class FlockManager : MonoBehaviour
             flock[i].transform.rotation = leadingAnimal.transform.rotation;
         }
         */
+
+        //flockCentre = Vector3.zero;
+        //foreach (GameObject animal in flock)
+        //{
+        //    flockCentre += animal.transform.position / flock.Count;
+        //}
 
         if (Input.GetKeyDown(KeyCode.D))
         {

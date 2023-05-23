@@ -29,8 +29,8 @@ public class FlockMovement : MonoBehaviour
     void Start()
     {
         mainCamera = Camera.main;
-        mainCamera.transform.position += new Vector3(0, transform.position.y, 0);
-        cameraOffset = mainCamera.transform.position - transform.position;
+        mainCamera.transform.position += new Vector3(0, leadingAnimal.transform.position.y, 0);
+        cameraOffset = mainCamera.transform.position - leadingAnimal.transform.position;
         flockManager = GetComponent<FlockManager>();
         DOTween.To(() => movementSpeed, x => movementSpeed = x, 10, 20);
     }
@@ -65,8 +65,10 @@ public class FlockMovement : MonoBehaviour
             StartCoroutine(TweenChecker(1f));
         }
 
-        Vector3 deltaDistance = movementSpeed * leadingAnimal.right * Time.deltaTime;
-        transform.position += deltaDistance;
+        leadingAnimal.GetComponent<AnimalManager>().speed = movementSpeed;
+
+        Vector3 deltaDistance = movementSpeed * leadingAnimal.forward * Time.deltaTime;
+        leadingAnimal.transform.position += deltaDistance;
         AdjustCamera();
         skyPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
         underwaterPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
@@ -81,10 +83,10 @@ public class FlockMovement : MonoBehaviour
 
     private void AdjustCamera()
     {
-        float defaultY = (transform.position + cameraOffset).y;
+        float defaultY = (leadingAnimal.transform.position + cameraOffset).y;
         float modifiedY = (defaultY / (skyPlaceholder.transform.position.y - underwaterPlaceholder.transform.position.y * 0.9f) + 1) / 2;
         float easedY = EaseInOutSigmoid(underwaterPlaceholder.transform.position.y * 0.9f, skyPlaceholder.transform.position.y, modifiedY, 12.5f);
-        mainCamera.transform.position = new Vector3(transform.position.x + cameraOffset.x, easedY, cameraOffset.z);
+        mainCamera.transform.position = new Vector3(leadingAnimal.transform.position.x + cameraOffset.x, easedY, cameraOffset.z);
     }
 
     private void SetRotation()
@@ -125,13 +127,13 @@ public class FlockMovement : MonoBehaviour
 
     private void ConstrainPositions()
     {
-        if (transform.position.y > skyPlaceholder.transform.position.y + skyPlaceholder.transform.localScale.y / 2)
+        if (leadingAnimal.transform.position.y > skyPlaceholder.transform.position.y + skyPlaceholder.transform.localScale.y / 2)
         {
-            transform.position = new Vector3(transform.position.x, skyPlaceholder.transform.position.y + skyPlaceholder.transform.localScale.y / 2, transform.position.z);
+            leadingAnimal.transform.position = new Vector3(leadingAnimal.transform.position.x, skyPlaceholder.transform.position.y + skyPlaceholder.transform.localScale.y / 2, leadingAnimal.transform.position.z);
         }
-        else if (transform.position.y < underwaterPlaceholder.transform.position.y - underwaterPlaceholder.transform.localScale.y / 2)
+        else if (leadingAnimal.transform.position.y < underwaterPlaceholder.transform.position.y - underwaterPlaceholder.transform.localScale.y / 2)
         {
-            transform.position = new Vector3(transform.position.x, underwaterPlaceholder.transform.position.y - skyPlaceholder.transform.localScale.y / 2, transform.position.z);
+            leadingAnimal.transform.position = new Vector3(leadingAnimal.transform.position.x, underwaterPlaceholder.transform.position.y - skyPlaceholder.transform.localScale.y / 2, leadingAnimal.transform.position.z);
         }
 
         if (mainCamera.transform.position.y > skyPlaceholder.transform.position.y)
