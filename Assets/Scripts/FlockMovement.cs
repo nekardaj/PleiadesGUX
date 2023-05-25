@@ -68,7 +68,7 @@ public class FlockMovement : MonoBehaviour
         leadingAnimal.GetComponent<AnimalManager>().speed = movementSpeed;
 
         Vector3 deltaDistance = movementSpeed * leadingAnimal.forward * Time.deltaTime;
-        leadingAnimal.transform.position += deltaDistance;
+        leadingAnimal.transform.localPosition += deltaDistance;
         AdjustCamera();
         skyPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
         underwaterPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
@@ -102,7 +102,7 @@ public class FlockMovement : MonoBehaviour
 
             if (leadingAnimal.rotation.eulerAngles.z <= 5 || leadingAnimal.rotation.eulerAngles.z >= 355)
             {
-                leadingAnimal.rotation = Quaternion.identity;
+                leadingAnimal.rotation = Quaternion.Euler(0, 90, 0);
             }
             else if (leadingAnimal.rotation.eulerAngles.z >= 270)
             {
@@ -117,11 +117,11 @@ public class FlockMovement : MonoBehaviour
         }
         if (leadingAnimal.rotation.eulerAngles.z < 270 && leadingAnimal.rotation.eulerAngles.z > 180)
         {
-            leadingAnimal.rotation = Quaternion.Euler(0, 0, 271);
+            leadingAnimal.rotation = Quaternion.Euler(0, 90, 271);
         }
         else if (leadingAnimal.rotation.eulerAngles.z > 90 && leadingAnimal.rotation.eulerAngles.z < 180)
         {
-            leadingAnimal.rotation = Quaternion.Euler(0, 0, 89);
+            leadingAnimal.rotation = Quaternion.Euler(0, 90, 89);
         }
     }
 
