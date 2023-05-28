@@ -9,6 +9,13 @@ public class PauseMenu : MonoBehaviour {
 
     public GameObject pauseMenuUI;
 
+    private AudioSource backgroundMusic;
+
+    void Start()
+    {
+        backgroundMusic = GameObject.FindGameObjectWithTag("MusicPlayer").GetComponent<AudioSource>();
+    }
+
     // Update is called once per frame
     void Update() {
 
@@ -48,10 +55,22 @@ public class PauseMenu : MonoBehaviour {
         Debug.Log("Loading menu...");
     }
 
-     public void QuitGame()
+    public void QuitGame()
     {  
         Debug.Log("Quitting game...");
         Application.Quit();
+    }
+
+    public void MusicSetter()
+    {
+        if (backgroundMusic.volume == 1)
+        {
+            backgroundMusic.volume = 0;
+        }
+        else
+        {
+            backgroundMusic.volume = 1;
+        }
     }
 
 

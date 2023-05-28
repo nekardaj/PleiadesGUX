@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - Sky
   - Environment
+  - MusicPlayer
   layers:
   - Default
   - TransparentFX
