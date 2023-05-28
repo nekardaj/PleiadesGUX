@@ -11,9 +11,10 @@ public class FlockMovement : MonoBehaviour
     [Range(0.0f, 20.0f)]
     public float turningCoefficient = 10f;
     [Range(0.0f, 20.0f)]
-    public float movementSpeed = 10;
+    public float movementSpeed = 5;
 
     private bool inTween = false;
+    public bool inFormation = false;
 
     private Vector3 cameraOffset;
 
@@ -32,7 +33,7 @@ public class FlockMovement : MonoBehaviour
         mainCamera.transform.position += new Vector3(0, leadingAnimal.transform.position.y, 0);
         cameraOffset = mainCamera.transform.position - leadingAnimal.transform.position;
         flockManager = GetComponent<FlockManager>();
-        DOTween.To(() => movementSpeed, x => movementSpeed = x, 10, 20);
+        DOTween.To(() => movementSpeed, x => movementSpeed = x, 5, 20);
     }
 
     void Update()
@@ -42,32 +43,34 @@ public class FlockMovement : MonoBehaviour
             if (flockManager.isInWater)
             {
                 inTween = true;
-                for (int i = 0; i < flockManager.flock.Count; i++)
+                inFormation = true;
+                for (int i = 1; i < flockManager.flock.Count; i++)
                 {
-                    flockManager.flock[i].transform.DOLocalMove(flockManager.alignPositions[i].transform.localPosition, 1);
+                    //flockManager.flock[i].transform.DOMove(flockManager.alignPositions[i].transform.position, 1);
                 }
                 StartCoroutine(TweenChecker(1f));
             }
             else
             {
                 inTween = true;
-                movementSpeed = 45;
-                DOTween.To(() => movementSpeed, x => movementSpeed = x, 10, 0.5f);
+                movementSpeed = 30;
+                DOTween.To(() => movementSpeed, x => movementSpeed = x, 5, 0.5f);
                 StartCoroutine(TweenChecker(0.5f));
             }
         }
-        else if (Input.GetKeyUp(KeyCode.Space))
+        else if (Input.GetKeyUp(KeyCode.Space) && inFormation)
         {
-            for (int i = 0; i < flockManager.flock.Count; i++)
+            inFormation = false;
+            for (int i = 1; i < flockManager.flock.Count; i++)
             {
-                flockManager.flock[i].transform.DOLocalMove(flockManager.spawnPositions[i].transform.localPosition, 1);
+                //flockManager.flock[i].transform.DOMove(flockManager.spawnPositions[i].transform.position, 1);
             }
             StartCoroutine(TweenChecker(1f));
         }
 
         leadingAnimal.GetComponent<AnimalManager>().speed = movementSpeed;
 
-        Vector3 deltaDistance = movementSpeed * leadingAnimal.forward * Time.deltaTime;
+        Vector3 deltaDistance = movementSpeed * leadingAnimal.right * Time.deltaTime;
         leadingAnimal.transform.localPosition += deltaDistance;
         AdjustCamera();
         skyPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
@@ -99,14 +102,12 @@ public class FlockMovement : MonoBehaviour
         }
         else
         {
-
             if (leadingAnimal.rotation.eulerAngles.z <= 5 || leadingAnimal.rotation.eulerAngles.z >= 355)
             {
-                leadingAnimal.rotation = Quaternion.Euler(0, 90, 0);
+                leadingAnimal.rotation = Quaternion.identity;
             }
             else if (leadingAnimal.rotation.eulerAngles.z >= 270)
             {
-                float before = leadingAnimal.eulerAngles.z;
                 leadingAnimal.Rotate(0, 0, (1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
             }
             else if (leadingAnimal.rotation.eulerAngles.z <= 90)
@@ -117,11 +118,11 @@ public class FlockMovement : MonoBehaviour
         }
         if (leadingAnimal.rotation.eulerAngles.z < 270 && leadingAnimal.rotation.eulerAngles.z > 180)
         {
-            leadingAnimal.rotation = Quaternion.Euler(0, 90, 271);
+            leadingAnimal.rotation = Quaternion.Euler(0, 0, 271);
         }
         else if (leadingAnimal.rotation.eulerAngles.z > 90 && leadingAnimal.rotation.eulerAngles.z < 180)
         {
-            leadingAnimal.rotation = Quaternion.Euler(0, 90, 89);
+            leadingAnimal.rotation = Quaternion.Euler(0, 0, 89);
         }
     }
 

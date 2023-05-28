@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     private LandscapeSpawner landscapeSpawner;
     private UnderwaterSpawner underwaterSpawner;
 
-    public int indexOfLastSpawned = 0; // Index of the last tile spawned
+    public int indexOfLastSpawned = -1; // Index of the last tile spawned
     private int starsSpawned = 0; // Number of stars spawned
     private int spawnInterval = 7; // Every *spawnInterval* tiles a star spawns
     private bool lastStarLayer = false; // True - last star was spawned in landscape, False - last star was spawned underwater
@@ -30,7 +30,8 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         if (player == null) return;
-        if ((int)player.leadingAnimal.transform.position.x / darknessSpawner.prefabWidth > indexOfLastSpawned)
+        float index = (int)player.leadingAnimal.transform.position.x / darknessSpawner.prefabWidth;
+        if (((int)player.leadingAnimal.transform.position.x + darknessSpawner.prefabWidth) / darknessSpawner.prefabWidth > indexOfLastSpawned)
         {
             bool spawnStar = false;
             bool spawnObstacle = false;
