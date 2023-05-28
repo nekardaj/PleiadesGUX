@@ -28,7 +28,7 @@ public class AnimalManager : MonoBehaviour
     private void Update()
     {
         if (manager.leadingAnimal == gameObject) return;
-        if (movement.inFormation)
+        if (movement.inFormation && manager.isInWater)
         {
             Vector3 direction = transform.parent.GetChild(transform.GetSiblingIndex() - 1).position - transform.position;
             if (direction != Vector3.zero)

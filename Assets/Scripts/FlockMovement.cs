@@ -33,7 +33,7 @@ public class FlockMovement : MonoBehaviour
         mainCamera.transform.position += new Vector3(0, leadingAnimal.transform.position.y, 0);
         cameraOffset = mainCamera.transform.position - leadingAnimal.transform.position;
         flockManager = GetComponent<FlockManager>();
-        DOTween.To(() => movementSpeed, x => movementSpeed = x, 5, 20);
+        DOTween.To(() => movementSpeed, x => movementSpeed = x, movementSpeed * 2, 20);
     }
 
     void Update()
@@ -53,8 +53,9 @@ public class FlockMovement : MonoBehaviour
             else
             {
                 inTween = true;
-                movementSpeed = 30;
-                DOTween.To(() => movementSpeed, x => movementSpeed = x, 5, 0.5f);
+                float prevMovementSpeed = movementSpeed;
+                movementSpeed *= 6;
+                DOTween.To(() => movementSpeed, x => movementSpeed = x, prevMovementSpeed, 0.5f);
                 StartCoroutine(TweenChecker(0.5f));
             }
         }

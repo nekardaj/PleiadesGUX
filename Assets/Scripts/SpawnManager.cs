@@ -30,7 +30,6 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         if (player == null) return;
-        float index = (int)player.leadingAnimal.transform.position.x / darknessSpawner.prefabWidth;
         if (((int)player.leadingAnimal.transform.position.x + darknessSpawner.prefabWidth) / darknessSpawner.prefabWidth > indexOfLastSpawned)
         {
             bool spawnStar = false;
