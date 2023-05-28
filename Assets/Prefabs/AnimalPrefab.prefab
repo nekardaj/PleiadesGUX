@@ -140,7 +140,6 @@ MonoBehaviour:
   fishSprite: {fileID: 21300000, guid: fd7ee39c59a397c41893f7219d7b1dd7, type: 3}
   manager: {fileID: 0}
   movement: {fileID: 0}
-  rotationSpeed: 10
   speed: 5
   angleTemp: 0
   groupCentre: {x: 0, y: 0, z: 0}
