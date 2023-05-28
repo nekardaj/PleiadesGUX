@@ -16,28 +16,8 @@ public class DarknessSpawner : Spawner
 
     public override void Spawn()
     {
-        GameObject newDarkness = Instantiate(prefabs[Random.Range(0, prefabs.Count)], new Vector3(indexOfLastSpawned * prefabWidth + 35, prefabHeight * 0.75f, 0), Quaternion.identity);
+        GameObject newDarkness = Instantiate(prefabs[Random.Range(0, prefabs.Count)], new Vector3(indexOfLastSpawned * prefabWidth, prefabHeight * 0.75f, 0), Quaternion.identity);
         StartCoroutine(RemoveEnvironmentPlaceholder(newDarkness));
         indexOfLastSpawned++;
     }
-
-    /* Might be useful if we have a lot of sprites, needs to be extended
-    private void Refresh()
-    {
-
-        var folderPath = "Assets/EnvironmentAssets/Darkness";
-
-        var prefabGUIDs = AssetDatabase.FindAssets("t:GameObject", new[] { folderPath });
-
-        foreach (var prefabGUID in prefabGUIDs)
-        {
-            var prefabPath = AssetDatabase.GUIDToAssetPath(prefabGUID);
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-            if (prefab != null && !darknessPrefabs.Contains(prefab))
-            {
-                darknessPrefabs.Add(prefab);
-            }
-        }
-    }
-    */
 }
