@@ -16,7 +16,7 @@ public abstract class Spawner : MonoBehaviour
     protected GameObject starPrefab;
 
 
-    public uint indexOfLastSpawned;
+    public int indexOfLastSpawned;
 
     public float prefabWidth;
     protected float prefabHeight;
@@ -40,7 +40,7 @@ public abstract class Spawner : MonoBehaviour
 
     protected IEnumerator RemoveEnvironmentPlaceholder(GameObject prefab)
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(30f);
         Destroy(prefab);
     }
 }

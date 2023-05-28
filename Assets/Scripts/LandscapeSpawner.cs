@@ -33,7 +33,7 @@ public class LandscapeSpawner : Spawner
         {
             lastHadZero = false;
         }
-        GameObject newLandscape = Instantiate(prefabToSpawn, new Vector3(indexOfLastSpawned * prefabWidth + 35, prefabHeight / 2, 0), Quaternion.identity);
+        GameObject newLandscape = Instantiate(prefabToSpawn, new Vector3(indexOfLastSpawned * prefabWidth, prefabHeight / 2, 0), Quaternion.identity);
         Instantiate(backgrounds[Random.Range(0, backgrounds.Count)], newLandscape.transform);
         if (spawnStar)
         {
