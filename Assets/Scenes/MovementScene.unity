@@ -699,7 +699,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -1542,27 +1542,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a27f3e12af8ccf4f8cd6ce8d92094e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstLayer:
+  coefficient: 0.5
+  cam: {fileID: 519420031}
+  backgrounds:
   - {fileID: 6625264368643379811, guid: c2748861aff1db44c83d21b327e00586, type: 3}
   - {fileID: 7405699525462602874, guid: 0c2239beab31f294ebeec7e02a811254, type: 3}
   - {fileID: 2161735067289261653, guid: e2b96efc96cfba746a33c5d529e54822, type: 3}
-  secondLayer:
-  - {fileID: 7523921643519114411, guid: e03c517bdd01120429d49a8966d705d7, type: 3}
-  - {fileID: 3135737598102259405, guid: b80503aefc215fb489b5e3fa3dc7fe06, type: 3}
-  - {fileID: 6264208881691266908, guid: 265c654fe77b7db48a18abbb850d1d19, type: 3}
-  thirdLayer:
-  - {fileID: 1219889276406489766, guid: 0b13966cf7d7d1248b3ce6bebf226398, type: 3}
-  - {fileID: 3022940695380621612, guid: d05580db44fe9ec4a97cf3b513ebf164, type: 3}
-  - {fileID: 62727200953053736, guid: cbf3100a1ae1aa64cb8157c5fcd9fe65, type: 3}
-  sfumatoLayer:
-  - {fileID: 5272904659609073861, guid: 5bba5269a39143040b7f1c74e0be15b8, type: 3}
-  - {fileID: 7326655840649025476, guid: cdcbc057b72d74c429424223f9cda97b, type: 3}
-  - {fileID: 94291137350316633, guid: 895945ad3fb9dab40bda7c1204e36e8b, type: 3}
-  skyLayer:
-  - {fileID: 5781732067511730259, guid: fbbf9422aafff584eaade9738bb2074e, type: 3}
-  - {fileID: 4721988046458677504, guid: 7d14f6469a0cbc14682933581e66a69f, type: 3}
-  - {fileID: 2612926131082069333, guid: d11fe9b0c5701f24eb519f6b07761f84, type: 3}
-  coefficient: 1.5
 --- !u!1001 &1211476637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2303,7 +2288,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -6
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.18431373, g: 0.3656699, b: 0.3882353, a: 1}
   m_FlipX: 0
@@ -2323,8 +2308,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639257918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6, z: 0}
-  m_LocalScale: {x: 30.000002, y: 12, z: 0.6}
+  m_LocalPosition: {x: 0, y: -6.8, z: 0}
+  m_LocalScale: {x: 33.85, y: 13.54, z: 0.677}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -2547,7 +2532,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.47058824, g: 0.4148716, b: 0.29803923, a: 1}
   m_FlipX: 0
@@ -2567,8 +2552,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908122528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
-  m_LocalScale: {x: 30.000002, y: 12, z: 0.6}
+  m_LocalPosition: {x: 0, y: 6.8, z: 0}
+  m_LocalScale: {x: 33.85, y: 13.54, z: 0.677}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}

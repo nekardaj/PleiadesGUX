@@ -4,31 +4,45 @@ using UnityEngine;
 
 public class ParallaxSpawner : MonoBehaviour
 {
-    // Spawnovat v tomhle poradi (od nejblizsiho po nejvzdalenejsi)
-    public GameObject[] firstLayer;
-    public GameObject[] secondLayer;
-    public GameObject[] thirdLayer;
-    public GameObject[] sfumatoLayer;
-    public GameObject[] skyLayer;
+    public float coefficient;
+    public Camera cam;
 
-    public float coefficient = 1.5f;
+    private float startPosition;
 
-    private FlockMovement movement;
-    private FlockManager manager;
+    private GameObject currentBackground;
+    private GameObject previousBackground;
+    public GameObject[] backgrounds;
 
-    private float length, startPosition;
-    private Camera cam;
+    private float prefabWidth;
+    private float prefabHeight;
 
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        movement = player.GetComponent<FlockMovement>();
-        manager = player.GetComponent<FlockManager>();
-        cam = Camera.main;
+        prefabWidth = backgrounds[0].GetComponent<SpriteRenderer>().size.x * 0.95f;
+        prefabHeight = backgrounds[0].GetComponent<SpriteRenderer>().size.y;
+        GameObject toSpawn = backgrounds[Random.Range(0, backgrounds.Length)];
+        currentBackground = Instantiate(toSpawn, new Vector3(0, toSpawn.GetComponent<SpriteRenderer>().size.y / 2), Quaternion.identity);
     }
 
-    void Update()
+    void FixedUpdate()
     {
-
+        /*
+        float temp = cam.transform.position.x * (1 - coefficient);
+        float distance = cam.transform.position.x * coefficient;
+        transform.position = new Vector3(startPosition + distance, transform.position.y, transform.position.z);
+        if (temp > startPosition + length) startPosition += length;
+        else if (temp < startPosition - length) startPosition -= length;
+        */
+        currentBackground.transform.position = new Vector3(cam.transform.position.x * coefficient, currentBackground.transform.position.y);
+        if (cam.transform.position.x - currentBackground.transform.position.x <= 0)
+        {
+            previousBackground = currentBackground;
+            GameObject toSpawn = backgrounds[Random.Range(0, backgrounds.Length)];
+            currentBackground = Instantiate(toSpawn, new Vector3(previousBackground.transform.position.x + prefabWidth / 2, prefabHeight / 2), Quaternion.identity);
+        }
+        if (previousBackground != null)
+        {
+            previousBackground.transform.position = new Vector3(cam.transform.position.x * coefficient - prefabWidth, previousBackground.transform.position.y);
+        }
     }
 }
