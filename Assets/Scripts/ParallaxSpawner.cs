@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ParallaxSpawner : MonoBehaviour
 {
+    [Range(0f, 1f)]
     public float coefficient;
-    public Camera cam;
+    private Camera cam;
 
     private float startPosition;
 
@@ -15,34 +16,32 @@ public class ParallaxSpawner : MonoBehaviour
 
     private float prefabWidth;
     private float prefabHeight;
+    private float prevCamX = 0f;
 
     void Start()
     {
+        cam = Camera.main;
         prefabWidth = backgrounds[0].GetComponent<SpriteRenderer>().size.x * 0.95f;
         prefabHeight = backgrounds[0].GetComponent<SpriteRenderer>().size.y;
         GameObject toSpawn = backgrounds[Random.Range(0, backgrounds.Length)];
         currentBackground = Instantiate(toSpawn, new Vector3(0, toSpawn.GetComponent<SpriteRenderer>().size.y / 2), Quaternion.identity);
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        /*
-        float temp = cam.transform.position.x * (1 - coefficient);
-        float distance = cam.transform.position.x * coefficient;
-        transform.position = new Vector3(startPosition + distance, transform.position.y, transform.position.z);
-        if (temp > startPosition + length) startPosition += length;
-        else if (temp < startPosition - length) startPosition -= length;
-        */
-        currentBackground.transform.position = new Vector3(cam.transform.position.x * coefficient, currentBackground.transform.position.y);
-        if (cam.transform.position.x - currentBackground.transform.position.x <= 0)
+        currentBackground.transform.position += new Vector3((cam.transform.position.x - prevCamX) * coefficient, 0);
+        float dist = currentBackground.transform.position.x - cam.transform.position.x;
+        if (dist <= 0)
         {
+            if (previousBackground != null) Destroy(previousBackground);
             previousBackground = currentBackground;
             GameObject toSpawn = backgrounds[Random.Range(0, backgrounds.Length)];
-            currentBackground = Instantiate(toSpawn, new Vector3(previousBackground.transform.position.x + prefabWidth / 2, prefabHeight / 2), Quaternion.identity);
+            currentBackground = Instantiate(toSpawn, new Vector3(previousBackground.transform.position.x + prefabWidth, prefabHeight / 2), Quaternion.identity);
         }
         if (previousBackground != null)
         {
-            previousBackground.transform.position = new Vector3(cam.transform.position.x * coefficient - prefabWidth, previousBackground.transform.position.y);
+            previousBackground.transform.position = currentBackground.transform.position - new Vector3(prefabWidth, 0);
         }
+        prevCamX = cam.transform.position.x;
     }
 }

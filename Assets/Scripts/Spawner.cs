@@ -40,7 +40,7 @@ public abstract class Spawner : MonoBehaviour
 
     protected IEnumerator RemoveEnvironmentPlaceholder(GameObject prefab)
     {
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(60f);
         Destroy(prefab);
     }
 }
