@@ -1283,7 +1283,7 @@ GameObject:
   - component: {fileID: 1209040388}
   m_Layer: 0
   m_Name: SpawnManager
-  m_TagString: Untagged
+  m_TagString: SpawnManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1337,7 +1337,6 @@ MonoBehaviour:
   obstacles:
   - {fileID: 64526590333699743, guid: fdb178ec6206b034a8a3ffa6ad86cfb4, type: 3}
   playerReference: {fileID: 1391630323}
-  indexOfLastSpawned: -1
   prefabWidth: 0
   backgrounds:
   - {fileID: 4438091633639530410, guid: 1d8e1c65d09fa2f4f940f3243fbce665, type: 3}
@@ -1355,31 +1354,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 3318781775359641569, guid: 752e351fe213e2149b6ffb3e287ef306, type: 3}
-  - {fileID: 788975792462356730, guid: 6c77665ddb736fc4f969fb9b3cc3110c, type: 3}
-  - {fileID: 6321471403311303981, guid: 5d46f9a951d8f02469bb0d37b192107d, type: 3}
-  - {fileID: 7381907437764212197, guid: 49f52e0794448d24cbb20f611a1ea667, type: 3}
-  - {fileID: 7548523418969233949, guid: 937b34a23cfd408459ce93dca4601885, type: 3}
-  - {fileID: 4279183539261453880, guid: 2f6db06e3789f3f4685f6b7131c3a260, type: 3}
-  - {fileID: 882572975243960744, guid: c899c175e61ec1d4996337704819d586, type: 3}
-  - {fileID: 5251565594310424506, guid: 21fb6c314f0e8e1439128841b551d570, type: 3}
-  - {fileID: 5345305907310927123, guid: dad62d4affb119a45ad8f16e640039eb, type: 3}
-  - {fileID: 5354358368396727569, guid: 6ae4ca3db42296a4aae1d39c0a5589bc, type: 3}
-  - {fileID: 6564547495921734311, guid: 884148664a2f0cf449df6f9931bcdd93, type: 3}
-  - {fileID: 3599521093469131610, guid: e49ce54cf385953418519efe198fd173, type: 3}
-  - {fileID: 3483848411638136159, guid: ca7fd6b4dab20a2449b9bd63dfc1987b, type: 3}
-  - {fileID: 6816203198745763854, guid: 7e33ed6f318963646bf2fa9bf8dbc547, type: 3}
-  - {fileID: 785478790304416913, guid: e1def76eea200dd4096ab270160210ad, type: 3}
-  - {fileID: 1969286385496123190, guid: 54b64c7d4e6e926488baed9e2d406867, type: 3}
-  - {fileID: 8195881846026095871, guid: 7496f6c4e918e6b47b8cbe5df081e416, type: 3}
-  - {fileID: 6250857909847272902, guid: a6cb0486668af0840859c3722ff006c0, type: 3}
+  - {fileID: 7191813211197325697, guid: ef86883a616ad4fae8ca0080920d85f3, type: 3}
+  - {fileID: 1497376504851945552, guid: 21fc09cc924834ae4b54034911c9270f, type: 3}
+  - {fileID: 7577635506406115674, guid: 18cff24235744416984d7f2e08f51863, type: 3}
+  - {fileID: 8797855972677561303, guid: 0b6c9da0b932b4875a6a367589063435, type: 3}
+  - {fileID: 1590799027491972750, guid: fc5772225a2134ed0bbb7d7df8cd575b, type: 3}
+  - {fileID: 7099672466053029058, guid: ee8bdc6ba498448c38d9f1efb05c60b1, type: 3}
+  - {fileID: 5252752777161220229, guid: f895d190bacff41f6b0ee78dcadad2e9, type: 3}
+  - {fileID: 5014419319564544328, guid: 0b2e8c53c60b540eb8caf7e3ae416eae, type: 3}
+  - {fileID: 7462341863634335874, guid: bef634d5ab0bf493dbfa006e7c768dc4, type: 3}
+  - {fileID: 1795011029022997663, guid: f24dfb152e329489ba3b1eb1f1d47309, type: 3}
+  - {fileID: 7074201606029633634, guid: eb6b137995d9645b0ae0816e07f17118, type: 3}
+  - {fileID: 2561085320125527238, guid: e369d500d0ea34cccbe796b804c116ea, type: 3}
+  - {fileID: 7924444051219558186, guid: 9498186e9175e44e4ab5cf27230d77c6, type: 3}
+  - {fileID: 4652055285773623539, guid: 2d46b5425bbeb4241ae68382a110198a, type: 3}
+  - {fileID: 4777755467623939768, guid: 25a8f10959c9d48ce8e8dada3b3baaba, type: 3}
+  - {fileID: 6924158163240654432, guid: 6b69146c0d124497eac1fbdbd4e59629, type: 3}
+  - {fileID: 6463282590630811539, guid: a3e0d48ba39174673a9a0625c8d760f3, type: 3}
+  - {fileID: 5518307811494496235, guid: 0bcd37a38329e4b10903bba0753d049f, type: 3}
   - {fileID: 6018953798488930526, guid: a35d2de340064234c87d5980e5154447, type: 3}
   - {fileID: 4441963875520990311, guid: 6d814998ec45e234992cb0bf5497787c, type: 3}
   - {fileID: 7464908075367322532, guid: 6051c60a3eafe5d4cbb3fc05a7ead1cc, type: 3}
   obstacles:
   - {fileID: 64526590333699743, guid: fdb178ec6206b034a8a3ffa6ad86cfb4, type: 3}
   playerReference: {fileID: 1391630323}
-  indexOfLastSpawned: -1
   prefabWidth: 0
   lastHeight: 0
   lastHadZero: 0
@@ -1404,7 +1402,6 @@ MonoBehaviour:
   - {fileID: 5844586553395558917, guid: 9c47fbc973b2d7544919e47952470a23, type: 3}
   obstacles: []
   playerReference: {fileID: 1391630323}
-  indexOfLastSpawned: -1
   prefabWidth: 0
 --- !u!114 &1209040385
 MonoBehaviour:
@@ -1420,8 +1417,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1391630327}
   starPrefab: {fileID: 4893434636011014114, guid: cc7c696d7422bdf4c8c630bee625a61d, type: 3}
+  staticLevels:
+  - {fileID: 2936509063921415633, guid: cbda130b5dc734e5e8cdf728d44d680c, type: 3}
+  - {fileID: 155847275314151927, guid: b07d7851c41d842ee8856c107590fdf9, type: 3}
   indexOfLastSpawned: -1
   obstacleSpawnChance: 0.1
+  distanceToNextSpawn: 0
 --- !u!4 &1209040386
 Transform:
   m_ObjectHideFlags: 0
@@ -1589,6 +1590,18 @@ PrefabInstance:
       propertyPath: leadingAnimal
       value: 
       objectReference: {fileID: 480155277}
+    - target: {fileID: 8586750650930270766, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
+      propertyPath: flock.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586750650930270766, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
+      propertyPath: flock.Array.data[0]
+      value: 
+      objectReference: {fileID: 2936509063921415633, guid: cbda130b5dc734e5e8cdf728d44d680c, type: 3}
+    - target: {fileID: 8586750650930270766, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
+      propertyPath: flock.Array.data[1]
+      value: 
+      objectReference: {fileID: 155847275314151927, guid: b07d7851c41d842ee8856c107590fdf9, type: 3}
     - target: {fileID: 8586750650930270929, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
       propertyPath: leadingAnimal
       value: 

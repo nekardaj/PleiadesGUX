@@ -33,7 +33,7 @@ public class FlockMovement : MonoBehaviour
         mainCamera.transform.position += new Vector3(0, leadingAnimal.transform.position.y, 0);
         cameraOffset = mainCamera.transform.position - leadingAnimal.transform.position;
         flockManager = GetComponent<FlockManager>();
-        DOTween.To(() => movementSpeed, x => movementSpeed = x, movementSpeed * 2, 20);
+        //DOTween.To(() => movementSpeed, x => movementSpeed = x, movementSpeed * 2, 20);
     }
 
     void Update()

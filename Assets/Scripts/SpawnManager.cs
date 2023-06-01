@@ -13,12 +13,14 @@ public class SpawnManager : MonoBehaviour
     private DarknessSpawner darknessSpawner;
     private LandscapeSpawner landscapeSpawner;
     private UnderwaterSpawner underwaterSpawner;
+    public GameObject[] staticLevels;
 
     public int indexOfLastSpawned = -1; // Index of the last tile spawned
     private int starsSpawned = 0; // Number of stars spawned
     private int spawnInterval = 7; // Every *spawnInterval* tiles a star spawns
     private bool lastStarLayer = false; // True - last star was spawned in landscape, False - last star was spawned underwater
     public float obstacleSpawnChance = 0.1f;
+    public float distanceToNextSpawn = 0f;
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         if (player == null) return;
+        distanceToNextSpawn = ((int)player.leadingAnimal.transform.position.x + darknessSpawner.prefabWidth) / darknessSpawner.prefabWidth;
         if (((int)player.leadingAnimal.transform.position.x + darknessSpawner.prefabWidth) / darknessSpawner.prefabWidth > indexOfLastSpawned)
         {
             bool spawnStar = false;
@@ -50,6 +53,11 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnEnvironment(bool spawnStar, bool spawnObstacle)
     {
+        if (indexOfLastSpawned % 10 == 0)
+        {
+            SpawnStaticLevel();
+            return;
+        }
         darknessSpawner.Spawn();
         if (spawnStar)
         {
@@ -91,5 +99,11 @@ public class SpawnManager : MonoBehaviour
                 underwaterSpawner.Spawn(false, spawnObstacle, false);
             }
         }
+    }
+
+    private void SpawnStaticLevel()
+    {
+        GameObject newLevel = Instantiate(staticLevels[Random.Range(0, staticLevels.Length)], new Vector3(indexOfLastSpawned * landscapeSpawner.prefabWidth - landscapeSpawner.prefabWidth / 2, 0, 0), Quaternion.identity);
+        indexOfLastSpawned += 15; // +1 v Update funkci
     }
 }

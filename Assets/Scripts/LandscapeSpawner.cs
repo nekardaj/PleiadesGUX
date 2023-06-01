@@ -12,7 +12,8 @@ public class LandscapeSpawner : Spawner
 
     void Start()
     {
-        indexOfLastSpawned = 0;
+        //indexOfLastSpawned = 0;
+        spawnManager = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnManager>();
         prefabWidth = prefabs[0].GetComponent<SpriteRenderer>().size.x * 0.95f;
         prefabHeight = prefabs[0].GetComponent<SpriteRenderer>().size.y;
         SetSortingLayers();
@@ -33,18 +34,17 @@ public class LandscapeSpawner : Spawner
         {
             lastHadZero = false;
         }
-        GameObject newLandscape = Instantiate(prefabToSpawn, new Vector3(indexOfLastSpawned * prefabWidth, prefabHeight / 2, 0), Quaternion.identity);
+        GameObject newLandscape = Instantiate(prefabToSpawn, new Vector3(spawnManager.indexOfLastSpawned * prefabWidth, prefabHeight / 2, 0), Quaternion.identity);
         //Instantiate(backgrounds[Random.Range(0, backgrounds.Count)], newLandscape.transform);
         if (spawnStar)
         {
-            Instantiate(starPrefab, newLandscape.transform.GetChild(Random.Range(0, newLandscape.transform.childCount - 1)));
+            //Instantiate(starPrefab, newLandscape.transform.GetChild(Random.Range(0, newLandscape.transform.childCount - 1)));
         }
         if (spawnObstacle)
         {
-            Instantiate(obstacles[Random.Range(0, obstacles.Count)], newLandscape.transform.GetChild(Random.Range(0, newLandscape.transform.childCount - 1)));
+            //Instantiate(obstacles[Random.Range(0, obstacles.Count)], newLandscape.transform.GetChild(Random.Range(0, newLandscape.transform.childCount - 1)));
         }
 
         StartCoroutine(RemoveEnvironmentPlaceholder(newLandscape));
-        indexOfLastSpawned++;
     }
 }

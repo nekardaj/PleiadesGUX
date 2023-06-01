@@ -10,6 +10,7 @@ TagManager:
   - Sky
   - Environment
   - MusicPlayer
+  - SpawnManager
   layers:
   - Default
   - TransparentFX
