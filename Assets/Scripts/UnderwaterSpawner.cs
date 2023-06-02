@@ -12,7 +12,7 @@ public class UnderwaterSpawner : Spawner
 
     void Start()
     {
-        indexOfLastSpawned = 0;
+        spawnManager = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnManager>();
         prefabWidth = prefabs[0].GetComponent<SpriteRenderer>().size.x * 0.95f;
         prefabHeight = prefabs[0].GetComponent<SpriteRenderer>().size.y;
         SetSortingLayers();
@@ -29,7 +29,7 @@ public class UnderwaterSpawner : Spawner
         }
         GameObject prefabToSpawn = suitablePrefabs[Random.Range(0, suitablePrefabs.Count)];
         lastHeight = ushort.Parse(prefabToSpawn.name.Substring(prefabToSpawn.name.Length - 1));
-        GameObject newUnderwater = Instantiate(prefabToSpawn, new Vector3(indexOfLastSpawned * prefabWidth, -prefabHeight / 2, 0), Quaternion.identity);
+        GameObject newUnderwater = Instantiate(prefabToSpawn, new Vector3(spawnManager.indexOfLastSpawned * prefabWidth, -prefabHeight / 2, 0), Quaternion.identity);
         Instantiate(backgrounds[Random.Range(0, backgrounds.Count)], newUnderwater.transform);
         if (spawnStar)
         {
@@ -41,6 +41,5 @@ public class UnderwaterSpawner : Spawner
         }
 
         StartCoroutine(RemoveEnvironmentPlaceholder(newUnderwater));
-        indexOfLastSpawned++;
     }
 }
