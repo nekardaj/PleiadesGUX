@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class UnderwaterSpawner : Spawner
 {
 
-    protected ushort lastHeight;
+    public ushort lastHeight;
     public List<GameObject> backgrounds;
 
     void Start()

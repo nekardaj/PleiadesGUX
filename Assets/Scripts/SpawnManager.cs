@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,14 +14,13 @@ public class SpawnManager : MonoBehaviour
     private DarknessSpawner darknessSpawner;
     private LandscapeSpawner landscapeSpawner;
     private UnderwaterSpawner underwaterSpawner;
-    public GameObject[] staticLevels;
+    public List<GameObject> staticLevels;
 
     public int indexOfLastSpawned = 0; // Index of the last tile spawned
     private int starsSpawned = 0; // Number of stars spawned
     private int spawnInterval = 7; // Every *spawnInterval* tiles a star spawns
     private bool lastStarLayer = false; // True - last star was spawned in landscape, False - last star was spawned underwater
     public float obstacleSpawnChance = 0.1f;
-    public float distanceToNextSpawn = 0f;
 
     void Start()
     {
@@ -32,8 +32,7 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         if (player == null) return;
-        distanceToNextSpawn = ((int)player.leadingAnimal.transform.position.x + darknessSpawner.prefabWidth) / darknessSpawner.prefabWidth;
-        if (((int)player.leadingAnimal.transform.position.x + darknessSpawner.prefabWidth) / darknessSpawner.prefabWidth > indexOfLastSpawned)
+        if (((int)player.leadingAnimal.transform.position.x + darknessSpawner.prefabWidth * 2) / darknessSpawner.prefabWidth > indexOfLastSpawned)
         {
             bool spawnStar = false;
             bool spawnObstacle = false;
@@ -103,7 +102,15 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnStaticLevel()
     {
-        GameObject newLevel = Instantiate(staticLevels[Random.Range(0, staticLevels.Length)], new Vector3(indexOfLastSpawned * landscapeSpawner.prefabWidth - landscapeSpawner.prefabWidth / 2, 0, 0), Quaternion.identity);
+        /*
+        string toStartWith = landscapeSpawner.lastHeight.ToString() + underwaterSpawner.lastHeight.ToString();
+        IEnumerable<GameObject> possibleLevels = staticLevels.Where(level => level.name.StartsWith(toStartWith));
+        GameObject newLevel = possibleLevels.ElementAt(Random.Range(0, possibleLevels.Count()));
+        */
+        GameObject newLevel = staticLevels[Random.Range(0, staticLevels.Count)];
+        Instantiate(newLevel, new Vector3(indexOfLastSpawned * landscapeSpawner.prefabWidth - landscapeSpawner.prefabWidth / 2, 0, 0), Quaternion.identity);
+        landscapeSpawner.lastHeight = ushort.Parse(newLevel.name[2].ToString());
+        underwaterSpawner.lastHeight = ushort.Parse(newLevel.name[3].ToString());
         indexOfLastSpawned += 15; // +1 v Update funkci
     }
 }
