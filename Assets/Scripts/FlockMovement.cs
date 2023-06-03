@@ -27,13 +27,15 @@ public class FlockMovement : MonoBehaviour
     public GameObject skyPlaceholder;
     public GameObject underwaterPlaceholder;
 
+    private TweenerCore<float, float, FloatOptions> tween;
+
     void Start()
     {
         mainCamera = Camera.main;
         mainCamera.transform.position += new Vector3(0, leadingAnimal.transform.position.y, 0);
         cameraOffset = mainCamera.transform.position - leadingAnimal.transform.position;
         flockManager = GetComponent<FlockManager>();
-        //DOTween.To(() => movementSpeed, x => movementSpeed = x, movementSpeed * 2, 20);
+        tween = DOTween.To(() => movementSpeed, x => movementSpeed = x, movementSpeed * 2, 30);
     }
 
     void Update()
@@ -44,15 +46,12 @@ public class FlockMovement : MonoBehaviour
             {
                 inTween = true;
                 inFormation = true;
-                for (int i = 1; i < flockManager.flock.Count; i++)
-                {
-                    //flockManager.flock[i].transform.DOMove(flockManager.alignPositions[i].transform.position, 1);
-                }
                 StartCoroutine(TweenChecker(1f));
             }
             else
             {
                 inTween = true;
+                tween.Complete();
                 float prevMovementSpeed = movementSpeed;
                 movementSpeed *= 6;
                 DOTween.To(() => movementSpeed, x => movementSpeed = x, prevMovementSpeed, 0.5f);
@@ -62,10 +61,6 @@ public class FlockMovement : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Space) && inFormation)
         {
             inFormation = false;
-            for (int i = 1; i < flockManager.flock.Count; i++)
-            {
-                //flockManager.flock[i].transform.DOMove(flockManager.spawnPositions[i].transform.position, 1);
-            }
             StartCoroutine(TweenChecker(1f));
         }
 

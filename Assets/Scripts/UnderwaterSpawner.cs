@@ -13,7 +13,7 @@ public class UnderwaterSpawner : Spawner
     void Start()
     {
         spawnManager = GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnManager>();
-        prefabWidth = prefabs[0].GetComponent<SpriteRenderer>().size.x * 0.95f;
+        prefabWidth = prefabs[0].GetComponent<SpriteRenderer>().size.x * 0.94f;
         prefabHeight = prefabs[0].GetComponent<SpriteRenderer>().size.y;
         SetSortingLayers();
         starPrefab = GetComponent<SpawnManager>().starPrefab;

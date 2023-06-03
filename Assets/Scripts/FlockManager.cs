@@ -75,6 +75,7 @@ public class FlockManager : MonoBehaviour
 
     private void Collision(Collider2D collision)
     {
+        if (!colliding) return;
         int flockCount = flock.Count;
         if (flockCount > 1)
         {

@@ -82,7 +82,7 @@ public class AnimalManager : MonoBehaviour
                 speed = movement.movementSpeed * direction.magnitude;
             }
         }
-
+        speed = Mathf.Min(speed / Mathf.Max(Mathf.Abs(angleTemp), 1), movement.movementSpeed * 1.5f);
         transform.position += speed * Time.deltaTime * transform.right;
     }
 
