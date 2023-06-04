@@ -1338,6 +1338,7 @@ MonoBehaviour:
   - {fileID: 64526590333699743, guid: fdb178ec6206b034a8a3ffa6ad86cfb4, type: 3}
   playerReference: {fileID: 1391630323}
   prefabWidth: 0
+  lastHeight: 0
   backgrounds:
   - {fileID: 4438091633639530410, guid: 1d8e1c65d09fa2f4f940f3243fbce665, type: 3}
   - {fileID: 8545332672918625977, guid: 47cde0b088561e741bdc49dbac5f2fc3, type: 3}
@@ -1422,7 +1423,6 @@ MonoBehaviour:
   - {fileID: 155847275314151927, guid: b07d7851c41d842ee8856c107590fdf9, type: 3}
   indexOfLastSpawned: -1
   obstacleSpawnChance: 0.1
-  distanceToNextSpawn: 0
 --- !u!4 &1209040386
 Transform:
   m_ObjectHideFlags: 0
