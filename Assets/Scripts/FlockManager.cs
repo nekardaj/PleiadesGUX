@@ -18,17 +18,9 @@ public class FlockManager : MonoBehaviour
 
     public Vector3 flockCentre;
 
-    //private bool aligningFlock = false;
-
-    //private Coroutine alignCoroutine;
-    //private Coroutine DisperseFlockCoroutine;
-
     private void Start()
     {
         movement = GetComponent<FlockMovement>();
-        //leadingAnimal = Instantiate(animalPrefab, transform);
-        //leadingAnimal.GetComponent<AnimalManager>().manager = this;
-        //leadingAnimal.GetComponent<AnimalManager>().movement = GetComponent<FlockMovement>();
         leadingAnimal = transform.GetChild(0).gameObject;
         movement.leadingAnimal = leadingAnimal.transform;
         flock.Add(leadingAnimal);
@@ -100,6 +92,10 @@ public class FlockManager : MonoBehaviour
         newBird.GetComponent<AnimalManager>().manager = this;
         newBird.GetComponent<AnimalManager>().movement = GetComponent<FlockMovement>();
         flock.Add(newBird);
+        if (flock.Count == 7)
+        {
+            InitiateEnd();
+        }
     }
 
     private IEnumerator Invincibility()
@@ -115,6 +111,11 @@ public class FlockManager : MonoBehaviour
         {
             animal.transform.GetChild(0).GetComponent<SpriteRenderer>().DOColor(Color.white, 0.5f);
         }
+    }
+
+    private void InitiateEnd()
+    {
+        GameObject.FindGameObjectWithTag("SpawnManager").GetComponent<SpawnManager>().SpawnEnd();
     }
 }
 

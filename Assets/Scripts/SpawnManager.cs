@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviour
     private LandscapeSpawner landscapeSpawner;
     private UnderwaterSpawner underwaterSpawner;
     public List<GameObject> staticLevels;
+    public List<GameObject> endPrefabs;
 
     public int indexOfLastSpawned = 0; // Index of the last tile spawned
     private int starsSpawned = 0; // Number of stars spawned
@@ -52,7 +53,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnEnvironment(bool spawnStar, bool spawnObstacle)
     {
-        if (indexOfLastSpawned % 10 == 0)
+        if (indexOfLastSpawned % 10 == 9) //0
         {
             SpawnStaticLevel();
             return;
@@ -102,7 +103,7 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnStaticLevel()
     {
-        /*
+        /* Az budou staticky levely hotovy. Do te doby nechat zakomentovany
         string toStartWith = landscapeSpawner.lastHeight.ToString() + underwaterSpawner.lastHeight.ToString();
         IEnumerable<GameObject> possibleLevels = staticLevels.Where(level => level.name.StartsWith(toStartWith));
         GameObject newLevel = possibleLevels.ElementAt(Random.Range(0, possibleLevels.Count()));
@@ -112,5 +113,11 @@ public class SpawnManager : MonoBehaviour
         landscapeSpawner.lastHeight = ushort.Parse(newLevel.name[2].ToString());
         underwaterSpawner.lastHeight = ushort.Parse(newLevel.name[3].ToString());
         indexOfLastSpawned += 15; // +1 v Update funkci
+    }
+
+    public void SpawnEnd()
+    {
+        Instantiate(endPrefabs[0], new Vector3(indexOfLastSpawned * landscapeSpawner.prefabWidth, landscapeSpawner.prefabHeight / 2, 0), Quaternion.identity);
+        indexOfLastSpawned += 10;
     }
 }
