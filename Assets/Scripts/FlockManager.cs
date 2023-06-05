@@ -58,6 +58,10 @@ public class FlockManager : MonoBehaviour
 
             Collision(collision);
         }
+        else if (collision.CompareTag("End"))
+        {
+            print("end");
+        }
     }
 
     public void SolveCollisionExit(Collider2D collision)

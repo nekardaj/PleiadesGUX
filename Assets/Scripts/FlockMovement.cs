@@ -51,6 +51,10 @@ public class FlockMovement : MonoBehaviour
             }
             else
             {
+                foreach(GameObject animal in flockManager.flock)
+                {
+                    animal.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Space");
+                }
                 inTween = true;
                 tween.Complete();
                 float prevMovementSpeed = movementSpeed;
