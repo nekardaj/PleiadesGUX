@@ -81,6 +81,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1782327144405893738}
     m_Modifications:
+    - target: {fileID: 1225060324904348146, guid: 7cd302964a65c764e81e91cff3b36bef, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1593787470215740475, guid: 7cd302964a65c764e81e91cff3b36bef, type: 3}
       propertyPath: m_Name
       value: AnimalPrefab
@@ -129,10 +133,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6388744004801841306, guid: 7cd302964a65c764e81e91cff3b36bef, type: 3}
-    - {fileID: 4516722224934066537, guid: 7cd302964a65c764e81e91cff3b36bef, type: 3}
-    - {fileID: 1370509280073696351, guid: 7cd302964a65c764e81e91cff3b36bef, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cd302964a65c764e81e91cff3b36bef, type: 3}
 --- !u!4 &7649743099534464340 stripped
 Transform:
