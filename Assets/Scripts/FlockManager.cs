@@ -97,6 +97,7 @@ public class FlockManager : MonoBehaviour
 
     private void AddAnimalToTheFlock()
     {
+        movement.movementSpeed += 0.6f;
         GameObject newBird = Instantiate(animalPrefab, spawnPositions[flock.Count].transform.position, Quaternion.identity, transform);
         newBird.transform.position = new Vector3(newBird.transform.position.x, newBird.transform.position.y, 0);
         newBird.GetComponent<AnimalManager>().manager = this;

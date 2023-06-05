@@ -19,5 +19,12 @@ public class EndManager : MonoBehaviour
         {
             bad.SetActive(true);
         }
+        StartCoroutine(WaitForFade());
+    }
+
+    private IEnumerator WaitForFade()
+    {
+        yield return new WaitForSeconds(3);
+        GetComponent<FadeManager>().FadeToLevel(0);
     }
 }

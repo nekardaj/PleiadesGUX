@@ -26,7 +26,7 @@ public class FadeManager : MonoBehaviour
 
     public void OnFadeComplete()
     {
-        if (indexToLoad > 0)
+        if (indexToLoad >= 0)
         {
             SceneManager.LoadScene(indexToLoad);
         }
