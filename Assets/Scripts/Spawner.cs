@@ -21,7 +21,7 @@ public abstract class Spawner : MonoBehaviour
     //public int indexOfLastSpawned;
 
     public float prefabWidth;
-    protected float prefabHeight;
+    public float prefabHeight;
 
     protected void SetSortingLayers()
     {
