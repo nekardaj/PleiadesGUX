@@ -31,7 +31,6 @@ public class FlockMovement : MonoBehaviour
 
     void Start()
     {
-        //PRDEL
         mainCamera = Camera.main;
         mainCamera.transform.position += new Vector3(0, leadingAnimal.transform.position.y, 0);
         cameraOffset = mainCamera.transform.position - leadingAnimal.transform.position;

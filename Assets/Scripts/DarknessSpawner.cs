@@ -16,7 +16,7 @@ public class DarknessSpawner : Spawner
 
     public override void Spawn()
     {
-        GameObject newDarkness = Instantiate(prefabs[Random.Range(0, prefabs.Count)], new Vector3(spawnManager.indexOfLastSpawned * prefabWidth, prefabHeight * 0.75f, 0), Quaternion.identity);
+        GameObject newDarkness = Instantiate(prefabs[Random.Range(0, prefabs.Count)], new Vector3(spawnManager.indexOfLastSpawned * prefabWidth, prefabHeight * 0.85f, 0), Quaternion.identity);
         StartCoroutine(RemoveEnvironmentPlaceholder(newDarkness));
     }
 }
