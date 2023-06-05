@@ -10,7 +10,7 @@ public class FlockMovement : MonoBehaviour
 {
     [Range(0.0f, 20.0f)]
     public float turningCoefficient = 10f;
-    [Range(0.0f, 20.0f)]
+    //[Range(0.0f, 20.0f)]
     public float movementSpeed = 5;
 
     private bool inTween = false;

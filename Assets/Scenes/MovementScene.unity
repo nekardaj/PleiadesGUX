@@ -1484,8 +1484,15 @@ MonoBehaviour:
   player: {fileID: 1391630327}
   starPrefab: {fileID: 4893434636011014114, guid: cc7c696d7422bdf4c8c630bee625a61d, type: 3}
   staticLevels:
+  - {fileID: 1736789918398258325, guid: c58d922ce2f1d4bfa8e4cf04dbebe900, type: 3}
   - {fileID: 2936509063921415633, guid: cbda130b5dc734e5e8cdf728d44d680c, type: 3}
+  - {fileID: 2936509063921415633, guid: 7314731e4b7c65f469ff2730ef45b996, type: 3}
+  - {fileID: 155847275314151927, guid: c03c10a798489df42bf6394f0eafe4ce, type: 3}
+  - {fileID: 155847275314151927, guid: 2eae502353b07f04290fa1db54b391bf, type: 3}
   - {fileID: 155847275314151927, guid: b07d7851c41d842ee8856c107590fdf9, type: 3}
+  - {fileID: 427036820613787080, guid: 19e10e221ee401f44b78535dbd4e924b, type: 3}
+  - {fileID: 427036820613787080, guid: 6b21f86b4480e45cb8011f86fe08fb69, type: 3}
+  - {fileID: 427036820613787080, guid: 32ad40579d4788d41896f58d05c239f9, type: 3}
   endPrefabs:
   - {fileID: 5354358368396727569, guid: 8522852cda78446419bfa9ff2c8db88b, type: 3}
   - {fileID: 5354358368396727569, guid: 209ca59076ac8a84aab51fab5479a127, type: 3}
