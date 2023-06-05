@@ -1352,7 +1352,7 @@ MonoBehaviour:
   - {fileID: 5014419319564544328, guid: 0b2e8c53c60b540eb8caf7e3ae416eae, type: 3}
   - {fileID: 7462341863634335874, guid: bef634d5ab0bf493dbfa006e7c768dc4, type: 3}
   - {fileID: 1795011029022997663, guid: f24dfb152e329489ba3b1eb1f1d47309, type: 3}
-  - {fileID: 6564547495921734311, guid: 884148664a2f0cf449df6f9931bcdd93, type: 3}
+  - {fileID: 1795011029022997663, guid: f24dfb152e329489ba3b1eb1f1d47309, type: 3}
   - {fileID: 2561085320125527238, guid: e369d500d0ea34cccbe796b804c116ea, type: 3}
   - {fileID: 7924444051219558186, guid: 9498186e9175e44e4ab5cf27230d77c6, type: 3}
   - {fileID: 4652055285773623539, guid: 2d46b5425bbeb4241ae68382a110198a, type: 3}
@@ -1408,11 +1408,18 @@ MonoBehaviour:
   player: {fileID: 1391630327}
   starPrefab: {fileID: 4893434636011014114, guid: cc7c696d7422bdf4c8c630bee625a61d, type: 3}
   staticLevels:
-  - {fileID: 1736789918398258325, guid: c58d922ce2f1d4bfa8e4cf04dbebe900, type: 3}
   - {fileID: 2936509063921415633, guid: cbda130b5dc734e5e8cdf728d44d680c, type: 3}
   - {fileID: 155847275314151927, guid: b07d7851c41d842ee8856c107590fdf9, type: 3}
   endPrefabs:
   - {fileID: 5354358368396727569, guid: 8522852cda78446419bfa9ff2c8db88b, type: 3}
+  - {fileID: 5354358368396727569, guid: 209ca59076ac8a84aab51fab5479a127, type: 3}
+  - {fileID: 5354358368396727569, guid: 339d6d76d8c5fc14995049e9e9919314, type: 3}
+  - {fileID: 3483848411638136159, guid: 64ffcdc365ad13343a33419d606e483c, type: 3}
+  - {fileID: 3483848411638136159, guid: c50cad0df161984448150534b751dcbd, type: 3}
+  - {fileID: 3483848411638136159, guid: a1234eeb4e74ee14696013db27844951, type: 3}
+  - {fileID: 6924158163240654432, guid: 2337a97ffb5d7574191cc1668d726ba2, type: 3}
+  - {fileID: 6924158163240654432, guid: d9d0fc183a1910949a71ff6df772a29f, type: 3}
+  - {fileID: 6924158163240654432, guid: cddbc7a352157374181796a014a53c56, type: 3}
   indexOfLastSpawned: -1
   obstacleSpawnChance: 0.1
 --- !u!4 &1209040386
@@ -1522,6 +1529,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 436825039450834308, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1027520768439017080, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -2238,7 +2249,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639257918}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -2482,7 +2493,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908122528}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1

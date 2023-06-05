@@ -11,6 +11,7 @@ TagManager:
   - Environment
   - MusicPlayer
   - SpawnManager
+  - End
   layers:
   - Default
   - TransparentFX
