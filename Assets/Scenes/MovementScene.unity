@@ -563,7 +563,6 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -637,19 +636,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfa92371cbf7b5c4ea95689a478fed8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flock: {fileID: 1391630323}
 --- !u!1 &661572492
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,6 +1324,7 @@ MonoBehaviour:
   - {fileID: 64526590333699743, guid: fdb178ec6206b034a8a3ffa6ad86cfb4, type: 3}
   playerReference: {fileID: 1391630323}
   prefabWidth: 0
+  prefabHeight: 0
   lastHeight: 0
   backgrounds:
   - {fileID: 4438091633639530410, guid: 1d8e1c65d09fa2f4f940f3243fbce665, type: 3}
@@ -1380,6 +1367,7 @@ MonoBehaviour:
   - {fileID: 64526590333699743, guid: fdb178ec6206b034a8a3ffa6ad86cfb4, type: 3}
   playerReference: {fileID: 1391630323}
   prefabWidth: 0
+  prefabHeight: 0
   lastHeight: 0
   lastHadZero: 0
   backgrounds:
@@ -1404,6 +1392,7 @@ MonoBehaviour:
   obstacles: []
   playerReference: {fileID: 1391630323}
   prefabWidth: 0
+  prefabHeight: 0
 --- !u!114 &1209040385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2260,7 +2249,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639257918}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -2504,7 +2493,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908122528}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
