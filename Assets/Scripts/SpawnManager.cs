@@ -105,7 +105,7 @@ public class SpawnManager : MonoBehaviour
     {
         /* Az budou staticky levely hotovy. Do te doby nechat zakomentovany
         string toStartWith = landscapeSpawner.lastHeight.ToString() + underwaterSpawner.lastHeight.ToString();
-        IEnumerable<GameObject> possibleLevels = staticLevels.Where(level => level.name.StartsWith(toStartWith));
+        List<GameObject> possibleLevels = staticLevels.Where(level => level.name.StartsWith(toStartWith)).ToList();
         GameObject newLevel = possibleLevels.ElementAt(Random.Range(0, possibleLevels.Count()));
         */
         GameObject newLevel = staticLevels[Random.Range(0, staticLevels.Count)];
@@ -117,7 +117,9 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnEnd()
     {
-        Instantiate(endPrefabs[0], new Vector3(indexOfLastSpawned * landscapeSpawner.prefabWidth, landscapeSpawner.prefabHeight / 2, 0), Quaternion.identity);
+        string toStartWith = landscapeSpawner.lastHeight.ToString() + underwaterSpawner.lastHeight.ToString();
+        List<GameObject> possibleLevels = endPrefabs.Where(level => level.name.StartsWith(toStartWith)).ToList();
+        Instantiate(possibleLevels[0], new Vector3(indexOfLastSpawned * landscapeSpawner.prefabWidth, landscapeSpawner.prefabHeight / 2, 0), Quaternion.identity);
         indexOfLastSpawned += 10;
     }
 }

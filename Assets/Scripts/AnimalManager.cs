@@ -9,6 +9,7 @@ public class AnimalManager : MonoBehaviour
     public Sprite fishSprite;
 
     private SpriteRenderer sprite;
+    private Animator animator;
     public FlockManager manager;
     public FlockMovement movement;
 
@@ -22,6 +23,7 @@ public class AnimalManager : MonoBehaviour
     private void Start()
     {
         sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
         //cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
     }
 
@@ -91,6 +93,7 @@ public class AnimalManager : MonoBehaviour
         if (collision.gameObject.tag == "Water")
         {
             manager.isInWater = true;
+            animator.enabled = false;
             sprite.sprite = fishSprite;
         }
         else
@@ -113,6 +116,7 @@ public class AnimalManager : MonoBehaviour
         {
             manager.isInWater = false;
             sprite.sprite = birdSprite;
+            animator.enabled = true;
         }
         else
         {

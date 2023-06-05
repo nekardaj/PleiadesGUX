@@ -1421,6 +1421,16 @@ MonoBehaviour:
   staticLevels:
   - {fileID: 2936509063921415633, guid: cbda130b5dc734e5e8cdf728d44d680c, type: 3}
   - {fileID: 155847275314151927, guid: b07d7851c41d842ee8856c107590fdf9, type: 3}
+  endPrefabs:
+  - {fileID: 5354358368396727569, guid: 8522852cda78446419bfa9ff2c8db88b, type: 3}
+  - {fileID: 5354358368396727569, guid: 209ca59076ac8a84aab51fab5479a127, type: 3}
+  - {fileID: 5354358368396727569, guid: 339d6d76d8c5fc14995049e9e9919314, type: 3}
+  - {fileID: 3483848411638136159, guid: 64ffcdc365ad13343a33419d606e483c, type: 3}
+  - {fileID: 3483848411638136159, guid: c50cad0df161984448150534b751dcbd, type: 3}
+  - {fileID: 3483848411638136159, guid: a1234eeb4e74ee14696013db27844951, type: 3}
+  - {fileID: 6924158163240654432, guid: 2337a97ffb5d7574191cc1668d726ba2, type: 3}
+  - {fileID: 6924158163240654432, guid: d9d0fc183a1910949a71ff6df772a29f, type: 3}
+  - {fileID: 6924158163240654432, guid: cddbc7a352157374181796a014a53c56, type: 3}
   indexOfLastSpawned: -1
   obstacleSpawnChance: 0.1
 --- !u!4 &1209040386
@@ -1530,6 +1540,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 436825039450834308, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1027520768439017080, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
