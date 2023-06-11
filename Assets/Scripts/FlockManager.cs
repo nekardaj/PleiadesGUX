@@ -10,6 +10,8 @@ public class FlockManager : MonoBehaviour
     public List<GameObject> flock = new List<GameObject>();
     public List<GameObject> spawnPositions= new List<GameObject>();
     public List<GameObject> alignPositions = new List<GameObject>();
+    public FadeManager fadeManager;
+    public EndManager endManager;
 
     private FlockMovement movement;
     public bool isInWater = false;
@@ -60,7 +62,9 @@ public class FlockManager : MonoBehaviour
         }
         else if (collision.CompareTag("End"))
         {
-            print("end");
+            isInvincible = true;
+            fadeManager.FadeOut();
+            endManager.goodOrBad = true;
         }
     }
 
@@ -85,12 +89,15 @@ public class FlockManager : MonoBehaviour
         else
         {
             print("Game Over");
+            fadeManager.FadeOut();
+            endManager.goodOrBad = false;
             Destroy(this.gameObject);
         }
     }
 
     private void AddAnimalToTheFlock()
     {
+        movement.movementSpeed += 0.6f;
         GameObject newBird = Instantiate(animalPrefab, spawnPositions[flock.Count].transform.position, Quaternion.identity, transform);
         newBird.transform.position = new Vector3(newBird.transform.position.x, newBird.transform.position.y, 0);
         newBird.GetComponent<AnimalManager>().manager = this;

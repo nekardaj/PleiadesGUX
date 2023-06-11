@@ -10,7 +10,7 @@ public class FlockMovement : MonoBehaviour
 {
     [Range(0.0f, 20.0f)]
     public float turningCoefficient = 10f;
-    [Range(0.0f, 20.0f)]
+    //[Range(0.0f, 20.0f)]
     public float movementSpeed = 5;
 
     private bool inTween = false;
@@ -31,7 +31,6 @@ public class FlockMovement : MonoBehaviour
 
     void Start()
     {
-        //PRDEL
         mainCamera = Camera.main;
         mainCamera.transform.position += new Vector3(0, leadingAnimal.transform.position.y, 0);
         cameraOffset = mainCamera.transform.position - leadingAnimal.transform.position;

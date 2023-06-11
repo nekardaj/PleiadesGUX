@@ -21,10 +21,10 @@ public class ParallaxSpawner : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        prefabWidth = backgrounds[0].GetComponent<SpriteRenderer>().size.x * 0.95f;
+        prefabWidth = backgrounds[0].GetComponent<SpriteRenderer>().size.x * 0.94f;
         prefabHeight = backgrounds[0].GetComponent<SpriteRenderer>().size.y;
         GameObject toSpawn = backgrounds[Random.Range(0, backgrounds.Length)];
-        currentBackground = Instantiate(toSpawn, new Vector3(0, toSpawn.GetComponent<SpriteRenderer>().size.y / 2), Quaternion.identity);
+        currentBackground = Instantiate(toSpawn, new Vector3(0, toSpawn.GetComponent<SpriteRenderer>().size.y / 2), Quaternion.identity, transform);
     }
 
     void Update()
@@ -36,7 +36,7 @@ public class ParallaxSpawner : MonoBehaviour
             if (previousBackground != null) Destroy(previousBackground);
             previousBackground = currentBackground;
             GameObject toSpawn = backgrounds[Random.Range(0, backgrounds.Length)];
-            currentBackground = Instantiate(toSpawn, new Vector3(previousBackground.transform.position.x + prefabWidth, prefabHeight / 2), Quaternion.identity);
+            currentBackground = Instantiate(toSpawn, new Vector3(previousBackground.transform.position.x + prefabWidth, prefabHeight / 2), Quaternion.identity, transform);
         }
         if (previousBackground != null)
         {
