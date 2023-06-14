@@ -1670,7 +1670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8586750650930270766, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
       propertyPath: colliding
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8586750650930270766, guid: 5eae1ec679dc53c40b852967b9f96aa9, type: 3}
       propertyPath: endManager
