@@ -35,10 +35,14 @@ public class AnimalManager : MonoBehaviour
             Vector3 direction = transform.parent.GetChild(transform.GetSiblingIndex() - 1).position - transform.position;
             if (direction != Vector3.zero)
             {
-                angleTemp = Vector2.SignedAngle(transform.right, direction) * rotationSpeed * Time.deltaTime;
+                angleTemp = Vector2.SignedAngle(transform.right, direction) * rotationSpeed * 5 * Time.deltaTime;
                 transform.Rotate(0, 0, angleTemp);
             }
             speed = movement.movementSpeed * direction.magnitude;
+            if (speed > movement.movementSpeed * 1.5f)
+            {
+                speed = movement.movementSpeed * 1.5f;
+            }
         }
         else
         {
@@ -67,14 +71,16 @@ public class AnimalManager : MonoBehaviour
             if (groupSize > 0)
             {
                 groupCentre /= groupSize;
-                //speed = groupSpeed / groupSize;
+                speed = groupSpeed / groupSize;
 
                 Vector3 direction = groupCentre + avoidVector - transform.position;
                 float distance = Vector3.Distance(transform.position, manager.leadingAnimal.transform.position);
-                if (distance > 6)
+                if (distance >= 4)
                 {
                     speed = movement.movementSpeed * 1.5f;
                     direction = manager.leadingAnimal.transform.position - transform.position;
+                    angleTemp = Vector2.SignedAngle(transform.right, direction);
+                    transform.Rotate(0, 0, angleTemp);
                 }
                 if (direction != Vector3.zero)
                 {
@@ -84,7 +90,8 @@ public class AnimalManager : MonoBehaviour
                 //speed = movement.movementSpeed * direction.magnitude;
             }
         }
-        speed = Mathf.Min(speed / Mathf.Max(Mathf.Abs(angleTemp), 1), movement.movementSpeed * 1.5f);
+        //speed /= Mathf.Max(Mathf.Abs(angleTemp), 1);
+        Mathf.Clamp(speed, movement.movementSpeed / 2, movement.movementSpeed * 1.5f);
         transform.position += speed * Time.deltaTime * transform.right;
     }
 

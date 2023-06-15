@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -103,7 +103,196 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: let_zacatek_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4efc1a5f4e69ba140bd5532cdbeb6164
+      internalID: -1990517571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: let_zacatek_1
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 600
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbca69807a0f7404386f8ad0b115c133
+      internalID: 1773489344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: let_zacatek_2
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 600
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a95de894f343a774cabbdba0d9f05236
+      internalID: 2013836796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: let_zacatek_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b00d1c1edefcbd4a9a0b93478d973a7
+      internalID: -1901348133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: let_zacatek_4
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 300
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34a256d558a2a5a47b0bce641c06ec10
+      internalID: 714665384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: let_zacatek_5
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 300
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36df4313ba191b14c9785db7c134c2ee
+      internalID: -1136814276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: let_zacatek_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 707052c08155998448893f5b485ed605
+      internalID: -732312701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: let_zacatek_7
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7503d3c6c81153f4b9f6fa23f43edde1
+      internalID: -145096209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: let_zacatek_8
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76a4633a4c6a89440bb3303efa6752e1
+      internalID: 1224019272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -114,7 +303,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      let_zacatek_0: -1990517571
+      let_zacatek_1: 1773489344
+      let_zacatek_2: 2013836796
+      let_zacatek_3: -1901348133
+      let_zacatek_4: 714665384
+      let_zacatek_5: -1136814276
+      let_zacatek_6: -732312701
+      let_zacatek_7: -145096209
+      let_zacatek_8: 1224019272
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
