@@ -67,7 +67,7 @@ public class AnimalManager : MonoBehaviour
             if (groupSize > 0)
             {
                 groupCentre /= groupSize;
-                speed = groupSpeed / groupSize;
+                //speed = groupSpeed / groupSize;
 
                 Vector3 direction = groupCentre + avoidVector - transform.position;
                 float distance = Vector3.Distance(transform.position, manager.leadingAnimal.transform.position);
@@ -81,7 +81,7 @@ public class AnimalManager : MonoBehaviour
                     angleTemp = Vector2.SignedAngle(transform.right, direction) * rotationSpeed * Time.deltaTime;
                     transform.Rotate(0, 0, angleTemp);
                 }
-                speed = movement.movementSpeed * direction.magnitude;
+                //speed = movement.movementSpeed * direction.magnitude;
             }
         }
         speed = Mathf.Min(speed / Mathf.Max(Mathf.Abs(angleTemp), 1), movement.movementSpeed * 1.5f);
