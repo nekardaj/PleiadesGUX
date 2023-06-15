@@ -30,7 +30,7 @@ public class FlockManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             AddAnimalToTheFlock();
         }
@@ -63,7 +63,7 @@ public class FlockManager : MonoBehaviour
         else if (collision.CompareTag("End"))
         {
             isInvincible = true;
-            fadeManager.FadeOut();
+            fadeManager.FadeToLevel(2);
             endManager.goodOrBad = true;
         }
     }
