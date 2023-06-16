@@ -598,6 +598,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -45.8
       objectReference: {fileID: 0}
+    - target: {fileID: 925996469923405875, guid: 0c75a012f87a54151a8aa1d13ec34909, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 925996469923405876, guid: 0c75a012f87a54151a8aa1d13ec34909, type: 3}
       propertyPath: m_RootOrder
       value: 147
@@ -3658,6 +3662,10 @@ PrefabInstance:
     - target: {fileID: 2553962951576401876, guid: 50e1579588d9e6a42b1b0345e788251b, type: 3}
       propertyPath: m_Name
       value: blob (214)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2553962951576401876, guid: 50e1579588d9e6a42b1b0345e788251b, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50e1579588d9e6a42b1b0345e788251b, type: 3}

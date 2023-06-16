@@ -45,7 +45,7 @@ public class FlockManager : MonoBehaviour
         }
         else if (collision.CompareTag("Obstacle"))
         {
-            if (movement.movementSpeed >= 25 || isInvincible)
+            if (movement.movementSpeed >= 10 || isInvincible)
             {
                 Destroy(collision.gameObject);
             }
@@ -85,6 +85,7 @@ public class FlockManager : MonoBehaviour
             Destroy(lastBird);
             if (collision.CompareTag("Obstacle")) Destroy(collision.gameObject);
             StartCoroutine(Invincibility());
+            movement.movementSpeed -= 0.3f;
         }
         else
         {
@@ -97,7 +98,7 @@ public class FlockManager : MonoBehaviour
 
     private void AddAnimalToTheFlock()
     {
-        movement.movementSpeed += 0.6f;
+        movement.movementSpeed += 0.3f;
         GameObject newBird = Instantiate(animalPrefab, spawnPositions[flock.Count].transform.position, Quaternion.identity, transform);
         newBird.transform.position = new Vector3(newBird.transform.position.x, newBird.transform.position.y, 0);
         newBird.GetComponent<AnimalManager>().manager = this;
