@@ -29,6 +29,13 @@ public class FlockMovement : MonoBehaviour
 
     private TweenerCore<float, float, FloatOptions> tween;
 
+    private float _vertical;
+
+    public float ReactionSpeed = 1.0f; // Speed at which the value goes towards 1 or -1
+    public float DecaySpeed = 2f;    // Decay speed of returning to zero
+
+    private float currentRotationGuide = 0.0f;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -77,6 +84,24 @@ public class FlockMovement : MonoBehaviour
         underwaterPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
 
         ConstrainPositions();
+
+        _vertical = Input.GetAxisRaw("Vertical");
+        if (_vertical == 1)
+        {
+            currentRotationGuide = Mathf.MoveTowards(currentRotationGuide, 1.0f, ReactionSpeed * Time.deltaTime);
+        }
+        else if (_vertical == -1)
+        {
+            currentRotationGuide = Mathf.MoveTowards(currentRotationGuide, -1.0f, ReactionSpeed * Time.deltaTime);
+        }
+        else
+        {
+            currentRotationGuide = Mathf.MoveTowards(currentRotationGuide, 0.0f, DecaySpeed * Time.deltaTime);
+        }
+        //if (currentRotationGuide != 0)
+        //{
+        //    Debug.Log(currentRotationGuide);
+        //}
     }
 
     private void FixedUpdate()
@@ -94,8 +119,27 @@ public class FlockMovement : MonoBehaviour
 
     private void SetRotation()
     {
+        leadingAnimal.rotation = Quaternion.Euler(0, 0, currentRotationGuide * 90);
+    }
+
+
+    private void SetRotationOld()
+    {
+        //float verticalInput = Input.GetAxis("Vertical");
+        //leadingAnimal.transform.position += verticalInput * Time.fixedDeltaTime * new Vector3(0, 4, 0);
+
         float verticalInput = Input.GetAxis("Vertical");
-        float angle = leadingAnimal.rotation.eulerAngles.z > 270 ? 360 - leadingAnimal.rotation.eulerAngles.z : leadingAnimal.rotation.eulerAngles.z;
+        float angle;
+        if (leadingAnimal.rotation.eulerAngles.z > 270)
+        {
+            angle = 360 - leadingAnimal.rotation.eulerAngles.z;
+        }
+        else
+        {
+            angle = leadingAnimal.rotation.eulerAngles.z;
+        }
+
+
         if (verticalInput != 0 && Input.GetButton("Vertical"))
         {
             leadingAnimal.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
