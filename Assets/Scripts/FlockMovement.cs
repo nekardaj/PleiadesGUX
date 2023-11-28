@@ -98,10 +98,6 @@ public class FlockMovement : MonoBehaviour
         {
             currentRotationGuide = Mathf.MoveTowards(currentRotationGuide, 0.0f, DecaySpeed * Time.deltaTime);
         }
-        //if (currentRotationGuide != 0)
-        //{
-        //    Debug.Log(currentRotationGuide);
-        //}
     }
 
     private void FixedUpdate()
@@ -120,54 +116,6 @@ public class FlockMovement : MonoBehaviour
     private void SetRotation()
     {
         leadingAnimal.rotation = Quaternion.Euler(0, 0, currentRotationGuide * 90);
-    }
-
-
-    private void SetRotationOld()
-    {
-        //float verticalInput = Input.GetAxis("Vertical");
-        //leadingAnimal.transform.position += verticalInput * Time.fixedDeltaTime * new Vector3(0, 4, 0);
-
-        float verticalInput = Input.GetAxis("Vertical");
-        float angle;
-        if (leadingAnimal.rotation.eulerAngles.z > 270)
-        {
-            angle = 360 - leadingAnimal.rotation.eulerAngles.z;
-        }
-        else
-        {
-            angle = leadingAnimal.rotation.eulerAngles.z;
-        }
-
-
-        if (verticalInput != 0 && Input.GetButton("Vertical"))
-        {
-            leadingAnimal.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
-        }
-        else
-        {
-            if (leadingAnimal.rotation.eulerAngles.z <= 5 || leadingAnimal.rotation.eulerAngles.z >= 355)
-            {
-                leadingAnimal.rotation = Quaternion.identity;
-            }
-            else if (leadingAnimal.rotation.eulerAngles.z >= 270)
-            {
-                leadingAnimal.Rotate(0, 0, (1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
-            }
-            else if (leadingAnimal.rotation.eulerAngles.z <= 90)
-            {
-                leadingAnimal.Rotate(0, 0, -(1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
-            }
-
-        }
-        if (leadingAnimal.rotation.eulerAngles.z < 270 && leadingAnimal.rotation.eulerAngles.z > 180)
-        {
-            leadingAnimal.rotation = Quaternion.Euler(0, 0, 271);
-        }
-        else if (leadingAnimal.rotation.eulerAngles.z > 90 && leadingAnimal.rotation.eulerAngles.z < 180)
-        {
-            leadingAnimal.rotation = Quaternion.Euler(0, 0, 89);
-        }
     }
 
     private void ConstrainPositions()
