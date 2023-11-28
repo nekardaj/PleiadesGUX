@@ -55,10 +55,10 @@ public class FlockMovement : MonoBehaviour
                     animal.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Space");
                 }
                 inTween = true;
-                tween.Complete();
+                tween.Pause();
                 float prevMovementSpeed = movementSpeed;
                 movementSpeed *= 6;
-                DOTween.To(() => movementSpeed, x => movementSpeed = x, prevMovementSpeed, 0.5f);
+                DOTween.To(() => movementSpeed, x => movementSpeed = x, prevMovementSpeed, 0.5f).OnComplete(() => { tween.Play(); });
                 StartCoroutine(TweenChecker(0.5f));
             }
         }
