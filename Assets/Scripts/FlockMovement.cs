@@ -8,8 +8,14 @@ using DG.Tweening.Plugins.Options;
 
 public class FlockMovement : MonoBehaviour
 {
-    [Range(0.0f, 20.0f)]
-    public float turningCoefficient = 10f;
+    [Tooltip("DEPRECATED")]
+    public float turningCoefficient = 1f;
+    [Tooltip("How fast the animal react to input")]
+    public float ReactionSpeed = 1.0f; // Speed at which the value goes towards 1 or -1
+    [Tooltip("How fast the animals return to default rotation")]
+    public float DecaySpeed = 2f;    // Decay speed of returning to zero
+    [Tooltip("Max absolute angle the animals can get to")]
+    public float MaxRotation = 70f; // Maximum rotation in degrees
     //[Range(0.0f, 20.0f)]
     public float movementSpeed = 5;
 
@@ -31,8 +37,7 @@ public class FlockMovement : MonoBehaviour
 
     private float _vertical;
 
-    public float ReactionSpeed = 1.0f; // Speed at which the value goes towards 1 or -1
-    public float DecaySpeed = 2f;    // Decay speed of returning to zero
+    
 
     private float currentRotationGuide = 0.0f;
 
@@ -115,7 +120,7 @@ public class FlockMovement : MonoBehaviour
 
     private void SetRotation()
     {
-        leadingAnimal.rotation = Quaternion.Euler(0, 0, currentRotationGuide * 90);
+        leadingAnimal.rotation = Quaternion.Euler(0, 0, currentRotationGuide * MaxRotation);
     }
 
     private void ConstrainPositions()
