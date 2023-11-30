@@ -13,6 +13,8 @@ public class FlockManager : MonoBehaviour
     public FadeManager fadeManager;
     public EndManager endManager;
 
+    public float StarReward = 0.3f;
+
     private FlockMovement movement;
     public bool isInWater = false;
     public bool colliding = true;
@@ -85,7 +87,8 @@ public class FlockManager : MonoBehaviour
             Destroy(lastBird);
             if (collision.CompareTag("Obstacle")) Destroy(collision.gameObject);
             StartCoroutine(Invincibility());
-            movement.movementSpeed -= 0.3f;
+            // TODO: modify star reward
+            movement.movementSpeed -= StarReward; // here remove
         }
         else
         {
@@ -96,9 +99,10 @@ public class FlockManager : MonoBehaviour
         }
     }
 
+    // TODO: modify star reward
     private void AddAnimalToTheFlock()
     {
-        movement.movementSpeed += 0.3f;
+        movement.movementSpeed += StarReward; // here
         GameObject newBird = Instantiate(animalPrefab, spawnPositions[flock.Count].transform.position, Quaternion.identity, transform);
         newBird.transform.position = new Vector3(newBird.transform.position.x, newBird.transform.position.y, 0);
         newBird.GetComponent<AnimalManager>().manager = this;
