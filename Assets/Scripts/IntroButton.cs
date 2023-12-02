@@ -11,7 +11,7 @@ public class IntroButton : MonoBehaviour {
         manager.FadeToLevel(1);
         //Time.timeScale = 1f;
         //SceneManager.LoadScene("MovementScene");
-        //Debug.Log("Play");
+        Debug.Log("Play");
     }
 
 
