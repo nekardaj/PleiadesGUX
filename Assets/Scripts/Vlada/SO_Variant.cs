@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
-
-using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "NewVariant", menuName = "Game_Variants/GameVariant", order = 1)]
 public class SO_Variant : ScriptableObject
