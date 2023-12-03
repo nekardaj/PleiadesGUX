@@ -5,7 +5,7 @@ using UnityEngine;
 public class ParametersManager : MonoBehaviour
 {
     [SerializeField]
-    private ParameterSettings[] parameterSettings;
+    private VariantType[] parameterSettings;
     private int version = 0;
 
     public static ParametersManager Instance { get; private set; }
@@ -22,7 +22,7 @@ public class ParametersManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public ParameterSettings GetParameterSettings()
+    public VariantType GetParameterSettings()
     {
         return parameterSettings[version];
     }
