@@ -19,23 +19,23 @@ public class MainManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(0);
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    SceneManager.LoadScene(0);
+        //}
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //Application.Quit();
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            flock.GetComponent<FlockMovement>().turningCoefficient++;
-            Mathf.Clamp(flock.GetComponent<FlockMovement>().turningCoefficient, 1, 10);
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            flock.GetComponent<FlockMovement>().turningCoefficient--;
-            Mathf.Clamp(flock.GetComponent<FlockMovement>().turningCoefficient, 1, 10);
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    flock.GetComponent<FlockMovement>().turningCoefficient++;
+        //    Mathf.Clamp(flock.GetComponent<FlockMovement>().turningCoefficient, 1, 10);
+        //}
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    flock.GetComponent<FlockMovement>().turningCoefficient--;
+        //    Mathf.Clamp(flock.GetComponent<FlockMovement>().turningCoefficient, 1, 10);
+        //}
     }
 }

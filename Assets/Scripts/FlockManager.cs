@@ -33,10 +33,10 @@ public class FlockManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            AddAnimalToTheFlock();
-        }
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    AddAnimalToTheFlock();
+        //}
     }
 
     public void SolveCollisionEnter(Collider2D collision)

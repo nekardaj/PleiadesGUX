@@ -41,15 +41,15 @@ public class VariantEnforcer : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            SetSlowVariant();
-        }
+        //if (Input.GetKeyDown(KeyCode.N))
+        //{
+        //    SetSlowVariant();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            SetFastVariant();
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    SetFastVariant();
+        //}
     }
 
     public void SetVariant(VariantType type)
