@@ -66,6 +66,7 @@ public class FlockManager : MonoBehaviour
         else if (collision.CompareTag("End"))
         {
             isInvincible = true;
+            Debug.Log("[log] Game Won");
             fadeManager.FadeToLevel(2);
             endManager.goodOrBad = true;
         }
