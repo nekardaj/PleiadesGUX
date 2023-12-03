@@ -8,7 +8,7 @@ public class Logger : MonoBehaviour
 {
     private static Logger loggerInstance;
 
-    string filename = Application.dataPath + "/SENDME_I-AM-WHAT-YOU-ARE-LOOKING-FOR.log";
+    string filename = Application.dataPath + "/SENDME_I-AM-WHAT-YOU-ARE-LOOKING-FOR.txt";
 
     void Awake()
     {
