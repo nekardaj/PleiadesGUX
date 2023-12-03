@@ -8,8 +8,14 @@ using DG.Tweening.Plugins.Options;
 
 public class FlockMovement : MonoBehaviour
 {
-    [Range(0.0f, 20.0f)]
-    public float turningCoefficient = 10f;
+    [Tooltip("DEPRECATED")]
+    public float turningCoefficient = 1f;
+    [Tooltip("How fast the animal react to input")]
+    public float ReactionSpeed = 1.0f; // Speed at which the value goes towards 1 or -1
+    [Tooltip("How fast the animals return to default rotation")]
+    public float DecaySpeed = 2f;    // Decay speed of returning to zero
+    [Tooltip("Max absolute angle the animals can get to")]
+    public float MaxRotation = 70f; // Maximum rotation in degrees
     //[Range(0.0f, 20.0f)]
     public float movementSpeed = 5;
 
@@ -28,6 +34,12 @@ public class FlockMovement : MonoBehaviour
     public GameObject underwaterPlaceholder;
 
     private TweenerCore<float, float, FloatOptions> tween;
+
+    private float _vertical;
+
+    
+
+    private float currentRotationGuide = 0.0f;
 
     void Start()
     {
@@ -77,6 +89,20 @@ public class FlockMovement : MonoBehaviour
         underwaterPlaceholder.transform.position += new Vector3(deltaDistance.x, 0, 0);
 
         ConstrainPositions();
+
+        _vertical = Input.GetAxisRaw("Vertical");
+        if (_vertical == 1)
+        {
+            currentRotationGuide = Mathf.MoveTowards(currentRotationGuide, 1.0f, ReactionSpeed * Time.deltaTime);
+        }
+        else if (_vertical == -1)
+        {
+            currentRotationGuide = Mathf.MoveTowards(currentRotationGuide, -1.0f, ReactionSpeed * Time.deltaTime);
+        }
+        else
+        {
+            currentRotationGuide = Mathf.MoveTowards(currentRotationGuide, 0.0f, DecaySpeed * Time.deltaTime);
+        }
     }
 
     private void FixedUpdate()
@@ -94,36 +120,7 @@ public class FlockMovement : MonoBehaviour
 
     private void SetRotation()
     {
-        float verticalInput = Input.GetAxis("Vertical");
-        float angle = leadingAnimal.rotation.eulerAngles.z > 270 ? 360 - leadingAnimal.rotation.eulerAngles.z : leadingAnimal.rotation.eulerAngles.z;
-        if (verticalInput != 0 && Input.GetButton("Vertical"))
-        {
-            leadingAnimal.Rotate(0, 0, verticalInput * (1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
-        }
-        else
-        {
-            if (leadingAnimal.rotation.eulerAngles.z <= 5 || leadingAnimal.rotation.eulerAngles.z >= 355)
-            {
-                leadingAnimal.rotation = Quaternion.identity;
-            }
-            else if (leadingAnimal.rotation.eulerAngles.z >= 270)
-            {
-                leadingAnimal.Rotate(0, 0, (1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
-            }
-            else if (leadingAnimal.rotation.eulerAngles.z <= 90)
-            {
-                leadingAnimal.Rotate(0, 0, -(1 - (Mathf.Abs(angle % 90)) / 90) * turningCoefficient);
-            }
-
-        }
-        if (leadingAnimal.rotation.eulerAngles.z < 270 && leadingAnimal.rotation.eulerAngles.z > 180)
-        {
-            leadingAnimal.rotation = Quaternion.Euler(0, 0, 271);
-        }
-        else if (leadingAnimal.rotation.eulerAngles.z > 90 && leadingAnimal.rotation.eulerAngles.z < 180)
-        {
-            leadingAnimal.rotation = Quaternion.Euler(0, 0, 89);
-        }
+        leadingAnimal.rotation = Quaternion.Euler(0, 0, currentRotationGuide * MaxRotation);
     }
 
     private void ConstrainPositions()
