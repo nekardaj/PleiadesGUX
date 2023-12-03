@@ -36,7 +36,7 @@ public class VariantEnforcer : MonoBehaviour
 
     private void Start()
     {
-        SetVariant(ParametersManager.Instance.GetParameterSettings());
+        SetVariant(ParametersManager.GetParameterSettings());
     }
 
     private void Update()

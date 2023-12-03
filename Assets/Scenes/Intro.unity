@@ -2060,6 +2060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parameterSettings: 0000000001000000
+  Dropdown: {fileID: 2100951271}
 --- !u!1 &2136137122
 GameObject:
   m_ObjectHideFlags: 0

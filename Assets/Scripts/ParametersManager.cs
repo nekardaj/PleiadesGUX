@@ -1,30 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using TMPro.EditorUtilities;
 using UnityEngine;
-
+using TMPro;
 public class ParametersManager : MonoBehaviour
 {
     [SerializeField]
     private VariantType[] parameterSettings;
-    private int version = 0;
+    private static VariantType variant;
+    [SerializeField]
+    private TMP_Dropdown Dropdown;
 
     public static ParametersManager Instance { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        if (Instance != null)
-        {
-            Destroy(this);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // Get dropdown component and set it to the value saved in variant variable
+        //Dropdown dropdown = GetComponent<Dropdown>();
+        //dropdown.value = parameterSettings.ToList().IndexOf(variant);
+        Dropdown.value = parameterSettings.ToList().IndexOf(variant);
     }
 
-    public VariantType GetParameterSettings()
+    public static VariantType GetParameterSettings()
     {
-        return parameterSettings[version];
+        return variant;
     }
 
     // Update is called once per frame
@@ -35,7 +37,7 @@ public class ParametersManager : MonoBehaviour
 
     public void SetVersion(int version)
     {
-        this.version = version;
+        variant = parameterSettings[version];
         Debug.Log("Version set to " + version);
     }
 }
