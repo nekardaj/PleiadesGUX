@@ -9,6 +9,7 @@ public class IntroButton : MonoBehaviour {
     public void Play()
     {
         manager.FadeToLevel(1);
+        Debug.Log($"[log] Started game with version {ParametersManager.Instance.GetParameterSettings()}");
         //Time.timeScale = 1f;
         //SceneManager.LoadScene("MovementScene");
         //Debug.Log("Play");
