@@ -17,4 +17,4 @@ MonoBehaviour:
   FlockRotationSpeed: 1.7
   FlockReturnSpeed: 2.4
   MaxAngle: 80
-  StarReward: 0.5
+  StarReward: 0.1
