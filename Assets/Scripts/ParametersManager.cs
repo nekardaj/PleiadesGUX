@@ -19,6 +19,7 @@ public class ParametersManager : MonoBehaviour
             return;
         }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public ParameterSettings GetParameterSettings()
