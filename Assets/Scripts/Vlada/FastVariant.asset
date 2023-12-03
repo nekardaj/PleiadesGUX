@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: FastVariant
   m_EditorClassIdentifier: 
   VariantType: 1
-  FlockSpeed: 5
+  FlockSpeed: 8
   FlockRotationSpeed: 1.8
   FlockReturnSpeed: 2.4
   MaxAngle: 80
-  StarReward: 0.1
+  StarReward: 0.3

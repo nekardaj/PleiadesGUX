@@ -74,7 +74,7 @@ public class VariantEnforcer : MonoBehaviour
         _variant = _slowVariant;
         _variantType = VariantType.Slow;
         EnforceVariant();
-        _variantText.text = "variant 1";
+        _variantText.text = "version 1";
         Debug.Log("SLOW VARIANT");
     }
 
@@ -83,7 +83,7 @@ public class VariantEnforcer : MonoBehaviour
         _variant = _fastVariant;
         _variantType = VariantType.Fast;
         EnforceVariant();
-        _variantText.text = "variant 2";
+        _variantText.text = "version 2";
         Debug.Log("FAST VARIANT");
     }
 

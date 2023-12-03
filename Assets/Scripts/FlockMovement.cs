@@ -47,7 +47,7 @@ public class FlockMovement : MonoBehaviour
         mainCamera.transform.position += new Vector3(0, leadingAnimal.transform.position.y, 0);
         cameraOffset = mainCamera.transform.position - leadingAnimal.transform.position;
         flockManager = GetComponent<FlockManager>();
-        tween = DOTween.To(() => movementSpeed, x => movementSpeed = x, movementSpeed * 2, 30);
+        //tween = DOTween.To(() => movementSpeed, x => movementSpeed = x, movementSpeed * 2, 30);
     }
 
     void Update()
@@ -67,10 +67,10 @@ public class FlockMovement : MonoBehaviour
                     animal.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Space");
                 }
                 inTween = true;
-                tween.Pause();
+                tween?.Pause();
                 float prevMovementSpeed = movementSpeed;
                 movementSpeed *= 6;
-                DOTween.To(() => movementSpeed, x => movementSpeed = x, prevMovementSpeed, 0.5f).OnComplete(() => { tween.Play(); });
+                DOTween.To(() => movementSpeed, x => movementSpeed = x, prevMovementSpeed, 0.5f).OnComplete(() => { tween?.Play(); });
                 StartCoroutine(TweenChecker(0.5f));
             }
         }
