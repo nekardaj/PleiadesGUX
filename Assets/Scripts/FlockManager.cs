@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Unity.Mathematics;
 
 public class FlockManager : MonoBehaviour
 {
@@ -83,16 +84,17 @@ public class FlockManager : MonoBehaviour
         {
             GameObject lastBird = flock[flockCount - 1];
             flock.RemoveAt(flockCount - 1);
+            Debug.Log($"[log] Animal died: from {flockCount} to {flockCount - 1}");
 
             Destroy(lastBird);
             if (collision.CompareTag("Obstacle")) Destroy(collision.gameObject);
             StartCoroutine(Invincibility());
-            // TODO: modify star reward
-            movement.movementSpeed -= StarReward; // here remove
+            movement.movementSpeed -= StarReward;
         }
         else
         {
             print("Game Over");
+            Debug.Log("[log] Game Over");
             fadeManager.FadeOut();
             endManager.goodOrBad = false;
             Destroy(this.gameObject);
@@ -108,6 +110,7 @@ public class FlockManager : MonoBehaviour
         newBird.GetComponent<AnimalManager>().manager = this;
         newBird.GetComponent<AnimalManager>().movement = GetComponent<FlockMovement>();
         flock.Add(newBird);
+        Debug.Log($"[log] Star collected: from {flock.Count - 1} to {flock.Count}");
         if (flock.Count == 7)
         {
             InitiateEnd();
