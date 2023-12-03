@@ -26,19 +26,38 @@ public class Logger : MonoBehaviour
 
     void OnEnable() 
     {
-        Application.logMessageReceived += Log; 
+        Application.logMessageReceived += Log;
+        string startMessage = "[" + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss,f") + "]: GAME STARTS\n";
+
+        try
+        {
+            System.IO.File.AppendAllText(filename, startMessage);
+        }
+        catch { }
+
     }
 
     void OnDisable() 
     {
-        Application.logMessageReceived -= Log; 
+        Application.logMessageReceived -= Log;
+        string endMessage = "[" + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss,f") + "]: GAME ENDS\n";
+
+        try
+        {
+            System.IO.File.AppendAllText(filename, endMessage);
+        }
+        catch { }
     }
 
     public void Log(string logString, string stackTrace, LogType type)
-    {        
+    {
+        if (!logString.StartsWith("[log] ")) return;
+        else logString = logString.Substring("[log] ".Length);
+
         try
         {
-            System.IO.File.AppendAllText(filename, logString + "\n");
+            string finalMessage = "[" + System.DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss,f") + "]: " + logString + "\n";
+            System.IO.File.AppendAllText(filename, finalMessage);
         }
         catch { }
     }
