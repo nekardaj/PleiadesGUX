@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VariantType: 0
   FlockSpeed: 4
-  FlockRotationSpeed: 1
-  FlockReturnSpeed: 1.2
+  FlockRotationSpeed: 1.1
+  FlockReturnSpeed: 1.4
   MaxAngle: 60
   StarReward: 0.3

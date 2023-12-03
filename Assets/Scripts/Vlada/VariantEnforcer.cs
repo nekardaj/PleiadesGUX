@@ -36,8 +36,7 @@ public class VariantEnforcer : MonoBehaviour
 
     private void Start()
     {
-        SetSlowVariant();
-        // TODO: find out which variant to activate
+        SetVariant(ParametersManager.Instance.GetParameterSettings());
     }
 
     private void Update()
@@ -53,11 +52,22 @@ public class VariantEnforcer : MonoBehaviour
         }
     }
 
-    //public void SetVariant(SO_Variant variant)
-    //{
-    //    _variant = variant;
-    //    EnforceVariant();
-    //}
+    public void SetVariant(VariantType type)
+    {
+        switch (type)
+        {
+            case VariantType.Slow:
+                SetSlowVariant();
+                break;
+            case VariantType.Fast:
+                SetFastVariant();
+                break;
+            default:
+                Debug.LogError("[VariantEnforcer] No Variant Type set!");
+                SetSlowVariant();
+                break;
+        }
+    }
 
     public void SetSlowVariant()
     {
@@ -86,10 +96,4 @@ public class VariantEnforcer : MonoBehaviour
 
         _flockManager.StarReward = _variant.StarReward;
     }
-
-    //public float FlockSpeed;
-    //public float FlockRotationSpeed;
-    //public float FlockReturnSpeed;
-    //public float MaxAngle;
-    //public float StarReward;
 }
