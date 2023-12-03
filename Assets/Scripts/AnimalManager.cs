@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AnimalManager : MonoBehaviour
 {
+    public bool isLeader = false;
     public Sprite birdSprite;
     public Sprite fishSprite;
 
@@ -105,7 +106,10 @@ public class AnimalManager : MonoBehaviour
         }
         else
         {
-            manager.SolveCollisionEnter(collision);
+            if (isLeader)
+            {
+                manager.SolveCollisionEnter(collision);
+            }
         }
     }
 
